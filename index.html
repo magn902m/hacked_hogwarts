@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script type="module" defer src="js/script.js"></script>
+    <title>Hacked Hogwarts</title>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to Hogwarts Students List</h1>
+      <img class="logo" src="" alt="" />
+    </header>
+
+    <main>
+      <nav class="nav_filter">
+        <div>
+          <h2>Filter by house:</h2>
+          <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
+          <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
+          <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
+          <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
+        </div>
+        <div>
+          <h2>Filter by gender:</h2>
+          <button class="filter" data-action="filter" data-filter="prefect">Prefects</button>
+          <button class="filter" data-action="filter" data-filter="expelled">
+            Expelled students
+          </button>
+          <button class="filter" data-action="filter" data-filter="nonexpelled">
+            Non Expelled students
+          </button>
+          <button class="filter" data-action="filter" data-filter="squad">
+            Inquisitorial squad
+          </button>
+        </div>
+        <div>
+          <h2>Filter by status:</h2>
+          <button class="filter" data-action="filter" data-filter="boys">Boys</button>
+          <button class="filter" data-action="filter" data-filter="girls">Girls</button>
+        </div>
+        <div>
+          <h2>Filter by blood status:</h2>
+          <button class="filter" data-action="filter" data-filter="pureblood">Pure blood</button>
+          <button class="filter" data-action="filter" data-filter="halfblood">Half blood</button>
+          <button class="filter" data-action="filter" data-filter="muggle">Muggles</button>
+        </div>
+        <div>
+          <button class="filter" data-action="filter" data-filter="*">Show all</button>
+        </div>
+      </nav>
+
+      <hr />
+
+      <nav class="nav_sorting">
+        <table id="student_list">
+          <thead>
+            <tr id="sorting">
+              <th data-action="sort" data-sort-direction="asc" data-sort="firstname">Firstname</th>
+              <th data-action="sort" data-sort-direction="asc" data-sort="lastname">Lastname</th>
+              <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
+              <th data-action="sort" data-sort-direction="asc" data-sort="prefect">🎖</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- student template will be copied and inserted here -->
+          </tbody>
+        </table>
+      </nav>
+
+      <template id="student">
+        <tr>
+          <td data-field="firstname">Firstname</td>
+          <td data-field="lastname">Lastname</td>
+          <td data-field="house">House</td>
+          <td data-field="prefect" data-prefect="false"></td>
+        </tr>
+      </template>
+    </main>
+
+    <footer>
+      <img class="logo" src="" alt="" />
+      <h1>The end of Hogwarts Students List</h1>
+    </footer>
+  </body>
+</html>
