@@ -17,14 +17,14 @@
     <main>
       <nav class="nav_filter">
         <div>
-          <h2>Filter by house:</h2>
+          <h3>Filter by house:</h3>
           <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
           <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
           <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
           <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
         </div>
         <div>
-          <h2>Filter by gender:</h2>
+          <h3>Filter by gender:</h3>
           <button class="filter" data-action="filter" data-filter="prefect">Prefects</button>
           <button class="filter" data-action="filter" data-filter="expelled">
             Expelled students
@@ -37,18 +37,25 @@
           </button>
         </div>
         <div>
-          <h2>Filter by status:</h2>
+          <h3>Filter by status:</h3>
           <button class="filter" data-action="filter" data-filter="boys">Boys</button>
           <button class="filter" data-action="filter" data-filter="girls">Girls</button>
         </div>
         <div>
-          <h2>Filter by blood status:</h2>
+          <h3>Filter by blood status:</h3>
           <button class="filter" data-action="filter" data-filter="pureblood">Pure blood</button>
           <button class="filter" data-action="filter" data-filter="halfblood">Half blood</button>
           <button class="filter" data-action="filter" data-filter="muggle">Muggles</button>
         </div>
         <div>
-          <button class="filter" data-action="filter" data-filter="*">Show all</button>
+          <button class="filter" data-action="filter" data-filter="all">Show all</button>
+        </div>
+      </nav>
+
+      <nav>
+        <h3>Searchbar</h3>
+        <div class="search_wrapper">
+          <input type="text" name="searchbar" id="searchbar" placeholder="Search here..." />
         </div>
       </nav>
 
@@ -58,10 +65,10 @@
         <table id="student_list">
           <thead>
             <tr id="sorting">
-              <th data-action="sort" data-sort-direction="asc" data-sort="firstname">Firstname</th>
+              <th data-action="sort" data-sort-direction="asc" data-sort="prefect">🎖</th>
+              <th data-action="sort" data-sort-direction="asc" data-sort="fullname">Firstname</th>
               <th data-action="sort" data-sort-direction="asc" data-sort="lastname">Lastname</th>
               <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
-              <th data-action="sort" data-sort-direction="asc" data-sort="prefect">🎖</th>
             </tr>
           </thead>
           <tbody>
@@ -72,10 +79,10 @@
 
       <template id="student">
         <tr>
+          <td data-field="prefect" data-prefect="false"></td>
           <td data-field="firstname">Firstname</td>
           <td data-field="lastname">Lastname</td>
           <td data-field="house">House</td>
-          <td data-field="prefect" data-prefect="false"></td>
         </tr>
       </template>
     </main>
