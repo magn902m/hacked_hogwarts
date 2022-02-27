@@ -52,9 +52,9 @@
         </div>
       </nav>
 
-      <nav>
-        <h3>Searchbar</h3>
+      <nav class="nav_search">
         <div class="search_wrapper">
+          <h3>Searchbar</h3>
           <input type="text" name="searchbar" id="searchbar" placeholder="Search here..." />
         </div>
       </nav>
@@ -76,6 +76,29 @@
           </tbody>
         </table>
       </nav>
+
+      <div id="pop_up">
+        <section class="content">
+          <button class="close">&times;</button>
+          <article class="student_info">
+            <img src="" alt="" />
+            <article class="info_wrapper">
+              <h3>Fullname:</h3>
+              <p id="fullname"></p>
+
+              <h3>House:</h3>
+              <p id="house"></p>
+            </article>
+          </article>
+          <article class="student_status">
+            <h3>Student status:</h3>
+            <p>Expelled:</p>
+            <p>Part of prefect:</p>
+            <p>Part of inquisitorial squad:</p>
+          </article>
+          <button id="expel_btn">Expel student</button>
+        </section>
+      </div>
 
       <template id="student">
         <tr>

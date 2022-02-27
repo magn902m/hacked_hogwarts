@@ -1,0 +1,131 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+img {
+  height: auto;
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+p {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+hr {
+  margin: 1.5rem 0 1.5rem 0;
+}
+
+#student_list tbody tr:nth-child(2n + 1) td {
+  background-color: #dbdbdb;
+}
+
+#student_list tbody tr td {
+  padding: 0.4rem;
+}
+
+/* ------ filter rules ------ */
+
+.nav_filter {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 3rem;
+}
+
+.nav_filter div {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 650px) {
+  /* ------ filter rules ------ */
+  .nav_filter {
+    flex-direction: row;
+  }
+}
+
+/* ------ search rules ------ */
+
+.nav_search {
+  display: flex;
+  justify-content: center;
+}
+
+/* ------ sorting rules ------ */
+
+.nav_sorting {
+  display: flex;
+  justify-content: center;
+}
+
+#sorting th.sortby[data-sort-direction="asc"]::after {
+  content: "🔽";
+  /* ▽ */
+}
+
+#sorting th.sortby[data-sort-direction="desc"]::after {
+  content: "🔼";
+  /* △ */
+}
+
+#student_list th,
+#student_list tr td {
+  min-width: 2rem;
+}
+/* 
+#student_list td {
+  min-width: 200px;
+} */
+
+/* ------ popup rules ------ */
+#pop_up {
+  display: none;
+}
+
+#pop_up.show {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#pop_up .content {
+  position: relative;
+  background-color: #fff;
+  padding: 1rem;
+  border: 1px solid #000;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 13px 2px;
+}
+
+#pop_up .content img {
+  width: 10rem;
+}
+
+#pop_up .student_info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+}
