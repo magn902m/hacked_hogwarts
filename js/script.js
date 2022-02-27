@@ -22,7 +22,7 @@ const Student = {
 
 const settings = {
   filterBy: "all",
-  sortBy: "name",
+  sortBy: "firstname",
   sortDir: "asc",
   direction: 1,
 };
@@ -35,7 +35,18 @@ function setup() {
   const urlList = "https://petlatkea.dk/2021/hogwarts/students.json";
   const urlBlood = "https://petlatkea.dk/2021/hogwarts/families.json";
 
+  regBtn();
   getData(urlList, urlBlood);
+}
+
+// --------- registerButtons ---------
+function regBtn() {
+  document
+    .querySelectorAll("[data-action='filter']")
+    .forEach((btn) => btn.addEventListener("click", selectFilter));
+  document
+    .querySelectorAll("[data-action='sort']")
+    .forEach((btn) => btn.addEventListener("click", selectSort));
 }
 
 // --------- getData ---------
@@ -129,9 +140,9 @@ function cleanUpData(studentsList, bloodStatus) {
 }
 
 function displayList(students) {
-  console.table(students);
+  // console.table(students);
   // clear the list
-  document.querySelector("#student_list tbody").innerHTML = ";";
+  document.querySelector("#student_list tbody").innerHTML = "";
   // build a new list
   students.forEach(displayStudent);
 }
@@ -147,4 +158,130 @@ function displayStudent(student) {
   clone.querySelector("[data-field=prefect]").textContent = "🎖";
   //   clone.querySelector(".popup_button").addEventListener("click", openPopup);
   document.querySelector("tbody").appendChild(clone);
+}
+
+// --------- filter ---------
+function selectFilter(event) {
+  // console.log("selectFilter");
+  const filter = event.target.dataset.filter;
+  setFilter(filter);
+}
+
+function setFilter(filter) {
+  settings.filterBy = filter;
+  buildList();
+}
+
+// function filterList(filteredList) {
+//   if (settings.filterBy === "gryffindor") {
+//     filteredList = allStudents.filter(isGryffindor);
+//   } else if (settings.filterBy === "slytherin") {
+//     filteredList = allStudents.filter(isSlytherin);
+//   } else if (settings.filterBy === "hufflepuff") {
+//     filteredList = allStudents.filter(isHufflepuff);
+//   } else if (settings.filterBy === "ravenclaw") {
+//     filteredList = allStudents.filter(isRavenclaw);
+//   }
+//   return filteredList;
+// }
+
+// function isGryffindor(student) {
+//   console.log(student);
+//   const gHouse = student.house
+
+//   gHouse === "gryffindor";
+//   return student.house === "gryffindor";
+// }
+// function isSlytherin(student) {
+//   return student.house === "slytherin";
+// }
+// function isHufflepuff(student) {
+//   return student.house === "hufflepuff";
+// }
+// function isRavenclaw(student) {
+//   return student.house === "ravenclaw";
+// }
+
+function filterList(filteredList) {
+  // filteredList = allStudents;
+
+  let toFilterOn = "house";
+
+  if (settings.filterBy !== "all") {
+    filteredList = allStudents.filter(isStudentsAll);
+  } else {
+    filteredList = allStudents;
+  }
+
+  function isStudentsAll(student) {
+    // console.log("student", student[toFilterOn]);
+    // console.log("filter", settings.filterBy);
+    if (student[toFilterOn] === settings.filterBy) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  return filteredList;
+}
+
+// --------- sorting ---------
+// sort allAnimals with the correct sort function and put info filterAnimals
+function selectSort(event) {
+  const sortBy = event.target.dataset.sort;
+  const sortDir = event.target.dataset.sortDirection;
+
+  //find old sortBy element
+  const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`);
+  oldElement.classList.remove("sortby");
+
+  //indicate active sort
+  event.target.classList.add("sortby");
+
+  //toggle the direction
+  if (sortDir === "asc") {
+    event.target.dataset.sortDirection = "desc";
+  } else {
+    event.target.dataset.sortDirection = "asc";
+  }
+
+  console.log(`user selected: ${sortBy} and ${sortDir}`);
+  setSort(sortBy, sortDir);
+}
+
+function setSort(sortBy, sortDir) {
+  settings.sortBy = sortBy;
+  settings.sortDir = sortDir;
+  buildList();
+}
+
+function sortList(sortedList) {
+  let direction = 1;
+  if (settings.sortDir === "desc") {
+    direction = -1;
+  } else {
+    settings.direction = 1;
+  }
+
+  sortedList = sortedList.sort(sortByProperty);
+
+  // closure
+  function sortByProperty(a, b) {
+    if (a[settings.sortBy] < b[settings.sortBy]) {
+      return -1 * settings.direction;
+    } else {
+      return 1 * settings.direction;
+    }
+  }
+  return sortedList;
+}
+
+function buildList() {
+  const currentList = filterList(allStudents);
+  const sortedList = sortList(currentList);
+
+  // console.log(allStudents);
+
+  displayList(sortedList);
+  // displayList(currentList);
 }
