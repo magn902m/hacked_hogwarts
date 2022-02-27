@@ -29,6 +29,7 @@ hr {
   margin: 1.5rem 0 1.5rem 0;
 }
 
+/* ------ student list rules ------ */
 #student_list tbody tr:nth-child(2n + 1) td {
   background-color: #dbdbdb;
 }
@@ -50,13 +51,6 @@ hr {
 .nav_filter div {
   display: flex;
   flex-direction: column;
-}
-
-@media (min-width: 650px) {
-  /* ------ filter rules ------ */
-  .nav_filter {
-    flex-direction: row;
-  }
 }
 
 /* ------ search rules ------ */
@@ -128,4 +122,28 @@ hr {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
+}
+
+/* ------ counter rules ------ */
+aside {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0rem;
+}
+
+#counterBar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 650px) {
+  /* ------ filter rules ------ */
+  .nav_filter {
+    flex-direction: row;
+  }
+
+  #counterBar {
+    flex-direction: row;
+  }
 }
