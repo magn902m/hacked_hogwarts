@@ -1,13 +1,23 @@
 --------- Step 1 ---------
+
 1. Setup files and directories.
 2. Download zip with imgs.
 3. Fetch the data, and console.log them.
- 
+
 --------- Step 2 ---------
+
 1. Make the html like in the wireframe with btn etc.
 2. Clean fetch data, and console.log it.
-3. Show the clean data in the DOM
+3. Show the clean data in the DOM.
 
 --------- Step 3 ---------
-1. Make simple filter
-2. Make simple sorting
+
+1. Make simple filter.
+2. Make simple sorting.
+
+--------- Step 4 ---------
+
+1. Count how many students there are in each house.
+2. Count all students.
+3. Count how many there is displaying.
+4. Count expelled students.
