@@ -73,6 +73,22 @@ footer {
 }
 
 /* ------ sorting rules ------ */
+/* *** prefect styling *** */
+
+[data-field="prefect"] {
+  text-align: center;
+  cursor: pointer;
+  min-width: 2em;
+}
+
+/* style on prefect */
+td[data-field="prefect"]::after {
+  content: "🎖";
+}
+
+td[data-field="prefect"][data-prefect="false"]::after {
+  filter: grayscale(100%);
+}
 
 .nav_sorting {
   display: flex;
@@ -93,6 +109,7 @@ footer {
 #student_list tr td {
   min-width: 2rem;
 }
+
 /* 
 #student_list td {
   min-width: 200px;
@@ -155,7 +172,47 @@ aside {
     flex-direction: row;
   }
 
+  /* ------ counter bar rules ------ */
   #counter_bar {
     flex-direction: row;
   }
 }
+
+/* ------ prefects rules ------ */
+.dialog {
+  display: none;
+}
+
+.dialog.show {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog_content {
+  position: relative;
+  background-color: #fff;
+  padding: 1rem;
+  border: 1px solid #000;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 13px 2px;
+}
+
+/* .dialog .close_dialog {
+  -moz-appearance: none;
+  appearance: none;
+  position: absolute;
+  top: 4vw;
+  right: 4vw;
+  border: none;
+  background-color: transparent;
+  font-size: 90%;
+  color: darkgray;
+} */
