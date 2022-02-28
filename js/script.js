@@ -23,9 +23,9 @@ const Student = {
 
 const settings = {
   filterBy: "all",
-  sortBy: "firstname",
+  sortBy: "firstName",
   sortDir: "asc",
-  direction: 1,
+  // direction: 1,
 };
 
 const HTML = {};
@@ -138,6 +138,8 @@ function cleanUpData(studentsList, bloodStatus) {
 
   // House: set the first char to upper case and the rest to lower case.
   student.house = house.charAt(0).toUpperCase() + house.substring(1).toLowerCase();
+
+  student.gender = gender.charAt(0).toUpperCase() + gender.substring(1).toLowerCase();
 
   return student;
 }
@@ -253,51 +255,90 @@ function setFilter(filter) {
 //   } else if (settings.filterBy === "ravenclaw") {
 //     filteredList = allStudents.filter(isRavenclaw);
 //   }
+//   else if (settings.filterBy === "boys") {
+//     filteredList = allStudents.filter(isBoys);
+//   } else if (settings.filterBy === "girls") {
+//     filteredList = allStudents.filter(isGirls);
+//   }
 //   return filteredList;
 // }
 
 // function isGryffindor(student) {
-//   console.log(student);
-//   const gHouse = student.house
+//   return student.house === "Gryffindor";
+// }
 
-//   gHouse === "gryffindor";
-//   return student.house === "gryffindor";
-// }
 // function isSlytherin(student) {
-//   return student.house === "slytherin";
+//   return student.house === "Slytherin";
 // }
+
 // function isHufflepuff(student) {
-//   return student.house === "hufflepuff";
+//   return student.house === "Hufflepuff";
 // }
+
 // function isRavenclaw(student) {
-//   return student.house === "ravenclaw";
+//   return student.house === "Ravenclaw";
+// }
+
+// function isBoys(student) {
+//   return student.gender === "Boy";
+// }
+
+// function isGirls(student) {
+//   return student.gender === "Girl";
 // }
 
 function filterList(filteredList) {
   // filteredList = allStudents;
 
-  let toFilterOn = "house";
+  let filterOnHouse = "house";
+  let filterOnGender = "gender";
 
-  if (settings.filterBy !== "all") {
-    filteredList = allStudents.filter(isStudentsAll);
-  } else {
+  if (settings.filterBy === "all") {
     filteredList = allStudents;
+  } else if (settings.filterBy === "Gryffindor") {
+    filteredList = allStudents.filter(isStudentsHouse);
+  } else if (settings.filterBy === "Slytherin") {
+    filteredList = allStudents.filter(isStudentsHouse);
+  } else if (settings.filterBy === "Hufflepuff") {
+    filteredList = allStudents.filter(isStudentsHouse);
+  } else if (settings.filterBy === "Ravenclaw") {
+    filteredList = allStudents.filter(isStudentsHouse);
+  } else if (settings.filterBy === "Boy") {
+    filteredList = allStudents.filter(isStudentsGender);
+  } else if (settings.filterBy === "Girl") {
+    filteredList = allStudents.filter(isStudentsGender);
   }
 
-  function isStudentsAll(student) {
+  // if (settings.filterBy !== "all") {
+  //   filteredList = allStudents.filter(isStudentsHouse);
+  // } else {
+  //   filteredList = allStudents;
+  // }
+
+  function isStudentsHouse(student) {
     // console.log("student", student[toFilterOn]);
     // console.log("filter", settings.filterBy);
-    if (student[toFilterOn] === settings.filterBy) {
+    if (student[filterOnHouse] === settings.filterBy) {
       return true;
     } else {
       return false;
     }
   }
+
+  function isStudentsGender(student) {
+    if (student[filterOnGender] === settings.filterBy) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return filteredList;
 }
 
 // --------- sorting ---------
 // sort allAnimals with the correct sort function and put info filterAnimals
+
 function selectSort(event) {
   const sortBy = event.target.dataset.sort;
   const sortDir = event.target.dataset.sortDirection;
@@ -331,7 +372,7 @@ function sortList(sortedList) {
   if (settings.sortDir === "desc") {
     direction = -1;
   } else {
-    settings.direction = 1;
+    direction = 1;
   }
 
   sortedList = sortedList.sort(sortByProperty);
@@ -339,9 +380,9 @@ function sortList(sortedList) {
   // closure
   function sortByProperty(a, b) {
     if (a[settings.sortBy] < b[settings.sortBy]) {
-      return -1 * settings.direction;
+      return -1 * direction;
     } else {
-      return 1 * settings.direction;
+      return 1 * direction;
     }
   }
   return sortedList;
