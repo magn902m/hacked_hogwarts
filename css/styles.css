@@ -29,6 +29,18 @@ hr {
   margin: 1.5rem 0 1.5rem 0;
 }
 
+/* ------ header, footer and logo ------ */
+header,
+footer {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+}
+
+.logo {
+  width: 20rem;
+}
+
 /* ------ student list rules ------ */
 #student_list tbody tr:nth-child(2n + 1) td {
   background-color: #dbdbdb;
