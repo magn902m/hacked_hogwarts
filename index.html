@@ -120,6 +120,58 @@
           <td data-field="house">House</td>
         </tr>
       </template>
+
+      <div id="pop_up">
+        <section class="content">
+          <button class="close">&times;</button>
+          <article class="student_info">
+            <img src="" alt="" />
+            <article class="info_wrapper">
+              <h3>Fullname:</h3>
+              <p id="fullname"></p>
+
+              <h3>House:</h3>
+              <p id="house"></p>
+            </article>
+          </article>
+          <article class="student_status">
+            <h3>Student status:</h3>
+            <p>Expelled:</p>
+            <p>Part of prefect:</p>
+            <p>Part of inquisitorial squad:</p>
+          </article>
+          <button id="expel_btn">Expel student</button>
+        </section>
+      </div>
+
+      <!-- Dialogs for handling too many prefects -->
+      <div id="remove_aorb" class="dialog">
+        <section class="dialog_content">
+          <button class="close_dialog">&times;</button>
+          <h2>You can only have two prefects per house!</h2>
+          <h3>Remove one, before you appoint more</h3>
+          <p>
+            <button data-action="remove1">remove</button>
+            <span class="student1">Name, the house</span>
+          </p>
+          <p>
+            <button data-action="remove2">remove</button>
+            <span class="student2">Name, the house</span>
+          </p>
+        </section>
+      </div>
+
+      <div id="remove_other" class="dialog">
+        <section class="dialog_content">
+          <button class="close_dialog">&times;</button>
+          <h2>You can only have one prefect of each house</h2>
+          <h3>Remove the other if you want to appoint a new one</h3>
+          <p>
+            <button data-action="remove1">remove</button>
+            <span class="student1">Name, the house</span>
+          </p>
+        </section>
+      </div>
     </main>
 
     <hr />
