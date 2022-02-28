@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", setup);
 // Array for all students
 let allStudents = [];
 let expelledList = [];
+let bloodHistory = [];
 
 // Student object
 const Student = {
@@ -54,19 +55,33 @@ function regBtn() {
 
 // --------- getData ---------
 async function getData(urlList, urlBlood) {
-  const responseList = await fetch(urlList);
-  const jsonDataList = await responseList.json();
-  const responseBlood = await fetch(urlBlood);
-  const jsonDataBlood = await responseBlood.json();
+  const jsonDataList = await loadFile1(urlList);
+  async function loadFile1(urlList) {
+    const responseList = await fetch(urlList);
+    const jsonDataList = await responseList.json();
+    return jsonDataList;
+  }
+
+  const jsonDataBlood = await loadFile2(urlBlood);
+  async function loadFile2(urlBlood) {
+    const responseBlood = await fetch(urlBlood);
+    const jsonDataBlood = await responseBlood.json();
+    return jsonDataBlood;
+  }
+
+  // const responseList = await fetch(urlList);
+  // const jsonDataList = await responseList.json();
+  // const responseBlood = await fetch(urlBlood);
+  // const jsonDataBlood = await responseBlood.json();
   // console.log(jsonData);
   // return allStudents;
   preparecleanUp(jsonDataList, jsonDataBlood);
 }
 
 function preparecleanUp(jsonDataList, jsonDataBlood) {
+  console.log(jsonDataList, jsonDataBlood);
   const studentsList = jsonDataList;
   const bloodStatus = jsonDataBlood;
-  console.log(bloodStatus);
   allStudents = studentsList.map(cleanUpData);
   buildList(allStudents);
 }
@@ -319,7 +334,7 @@ function tryToMakeAPrefect(selectedStudent) {
     function clickRemoveB() {
       // else - if removeB
       removeWinner(prefectB);
-      makePrefect(selectedstudent);
+      makePrefect(selectedStudent);
       buildList();
       closeDialog();
     }
