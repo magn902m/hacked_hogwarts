@@ -68,7 +68,7 @@ function preparecleanUp(jsonDataList, jsonDataBlood) {
   const bloodStatus = jsonDataBlood;
   console.log(bloodStatus);
   allStudents = studentsList.map(cleanUpData);
-  displayList(allStudents);
+  buildList(allStudents);
 }
 
 function cleanUpData(studentsList, bloodStatus) {
@@ -197,7 +197,23 @@ function displayStudent(student) {
   ).textContent = `${student.firstName} ${student.nickName} ${student.middleName}`;
   clone.querySelector("[data-field=lastname]").textContent = student.lastName;
   clone.querySelector("[data-field=house]").textContent = student.house;
-  clone.querySelector("[data-field=prefect]").textContent = "🎖";
+  // clone.querySelector("[data-field=prefect]").textContent = "🎖";
+
+  // --------- Prefects ---------
+  // append clone to list
+  clone.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
+  // Make trophy clickable
+  clone.querySelector("[data-field=prefect]").addEventListener("click", selectPrefect);
+
+  function selectPrefect() {
+    if (student.prefect === true) {
+      student.prefect = false;
+    } else {
+      tryToMakeAPrefect(student);
+      // student.prefect = true;
+    }
+    buildList();
+  }
 
   clone
     .querySelector("[data-field=firstname]")
@@ -207,6 +223,115 @@ function displayStudent(student) {
     .addEventListener("click", () => showDetails(student));
 
   document.querySelector("tbody").appendChild(clone);
+}
+
+// ------ prefect ------
+function tryToMakeAPrefect(selectedStudent) {
+  const prefects = allStudents.filter((student) => student.prefect);
+
+  const numberOfPrefects = prefects.length;
+  const other = prefects.filter((student) => student.house === selectedStudent.house).shift();
+
+  // if there is another of the same type
+  if (other !== undefined) {
+    console.log("There can be only one prefect of each house!");
+    removeOther(other);
+  } else if (numberOfPrefects >= 2) {
+    console.log("There can only be two prefects!");
+    removeAorB(prefects[0], prefects[1]);
+  } else {
+    makePrefect(selectedStudent);
+  }
+
+  // console.log(`There are ${numberOfPrefects} prefects`);
+  // console.log(`The other prefect of this is ${other.firstName}`);
+  // console.log(other);
+  // makePrefect(selectedStudent);
+
+  function removeOther(other) {
+    // ask the user to ignore, or remove "other"
+    document.querySelector("#remove_other").classList.remove("dialog");
+    document.querySelector("#remove_other .close_dialog").addEventListener("click", closeDialog);
+    document
+      .querySelector("#remove_other [data-action=remove1]")
+      .addEventListener("click", clickRemoveOther);
+
+    // show names on buttons
+    document.querySelector("#remove_other .student1").textContent = other.firstName;
+
+    // if ignore - do nothing ..
+    function closeDialog() {
+      document.querySelector("#remove_other").classList.add("dialog");
+      document
+        .querySelector("#remove_other .close_dialog")
+        .removeEventListener("click", closeDialog);
+      document
+        .querySelector("#remove_other [data-action=remove1]")
+        .removeEventListener("click", clickRemoveOther);
+    }
+
+    // if remove other:
+    function clickRemoveOther() {
+      removeWinner(other);
+      makePrefect(selectedStudent);
+      buildList();
+      closeDialog();
+    }
+  }
+
+  function removeAorB(prefectA, prefectB) {
+    // ask the user to ignnore, or remove A or B
+    document.querySelector("#remove_aorb").classList.remove("dialog");
+    document.querySelector("#remove_aorb .close_dialog").addEventListener("click", closeDialog);
+    document
+      .querySelector("#remove_aorb [data-action=remove1]")
+      .addEventListener("click", clickRemoveA);
+    document
+      .querySelector("#remove_aorb [data-action=remove2]")
+      .addEventListener("click", clickRemoveB);
+
+    // show names on buttons
+    document.querySelector("#remove_aorb .student1").textContent = prefectA.firstName;
+    document.querySelector("#remove_aorb .student2").textContent = prefectB.firstName;
+
+    // if ignore - do nothing ..
+    function closeDialog() {
+      document.querySelector("#remove_aorb").classList.add("dialog");
+      document
+        .querySelector("#remove_aorb .close_dialog")
+        .removeEventListener("click", closeDialog);
+      document
+        .querySelector("#remove_aorb [data-action=remove1]")
+        .removeEventListener("click", clickRemoveA);
+      document
+        .querySelector("#remove_aorb [data-action=remove2]")
+        .removeEventListener("click", clickRemoveB);
+    }
+
+    function clickRemoveA() {
+      // if remove other:
+      removeWinner(prefectA);
+      makePrefect(selectedStudent);
+      buildList();
+      closeDialog();
+    }
+
+    function clickRemoveB() {
+      // else - if removeB
+      removeWinner(prefectB);
+      makePrefect(selectedstudent);
+      buildList();
+      closeDialog();
+    }
+  }
+
+  function removeWinner(studentPrefect) {
+    studentPrefect.prefect = false;
+  }
+
+  function makePrefect(studentPrefect) {
+    studentPrefect.prefect = true;
+  }
 }
 
 // --------- popup ---------
@@ -337,7 +462,7 @@ function filterList(filteredList) {
 }
 
 // --------- sorting ---------
-// sort allAnimals with the correct sort function and put info filterAnimals
+// sort allStudents with the correct sort function and put info filterAnimals
 
 function selectSort(event) {
   const sortBy = event.target.dataset.sort;
