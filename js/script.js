@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", setup);
 // --------- Variables ---------
 // Array for all students
 let allStudents = [];
+let expelledList = [];
 
 // Student object
 const Student = {
@@ -145,8 +146,45 @@ function displayList(students) {
   // console.table(students);
   // clear the list
   document.querySelector("#student_list tbody").innerHTML = "";
+
+  // count students
+  const studentCounted = studentCounter(students);
+  displayCount(studentCounted);
+
   // build a new list
   students.forEach(displayStudent);
+}
+
+// Counting all the houses form all students, and looking at the lenght of allStudents, expelledList and students.
+function studentCounter(students) {
+  const result = {
+    total: 0,
+    Gryffindor: 0,
+    Hufflepuff: 0,
+    Ravenclaw: 0,
+    Slytherin: 0,
+    displaying: 0,
+    expelled: 0,
+  };
+
+  allStudents.forEach((student) => {
+    result[student.house]++;
+  });
+
+  result.total = allStudents.length;
+  result.displaying = students.length;
+
+  return result;
+}
+
+function displayCount(studentConuted) {
+  document.querySelector("#counter_bar #total_count").textContent = studentConuted.total;
+  document.querySelector("#counter_bar #gryffindor_count").textContent = studentConuted.Gryffindor;
+  document.querySelector("#counter_bar #hufflepuff_count").textContent = studentConuted.Hufflepuff;
+  document.querySelector("#counter_bar #ravenclaw_count").textContent = studentConuted.Ravenclaw;
+  document.querySelector("#counter_bar #slytherin_count").textContent = studentConuted.Slytherin;
+  document.querySelector("#counter_bar #expelled_count").textContent = studentConuted.expelled;
+  document.querySelector("#counter_bar #displaying_count").textContent = studentConuted.displaying;
 }
 
 function displayStudent(student) {
