@@ -43,6 +43,7 @@ function setup() {
 
 // --------- registerButtons ---------
 function regBtn() {
+  document.querySelector("#searchbar").addEventListener("input", searchFieldInput);
   document
     .querySelectorAll("[data-action='filter']")
     .forEach((btn) => btn.addEventListener("click", selectFilter));
@@ -371,6 +372,21 @@ function showDetails(details) {
       closePopUp();
     }
   });
+}
+
+// --------- searchbar ---------
+function searchFieldInput(evt) {
+  // write to the list with only those elemnts in the allAnimals array that has properties containing the search frase
+  displayList(
+    allStudents.filter((student) => {
+      // comparing in uppercase so that m is the same as M
+      return (
+        student.firstName.toUpperCase().includes(evt.target.value.toUpperCase()) ||
+        student.lastName.toUpperCase().includes(evt.target.value.toUpperCase()) ||
+        student.house.toUpperCase().includes(evt.target.value.toUpperCase())
+      );
+    })
+  );
 }
 
 // --------- filter ---------
