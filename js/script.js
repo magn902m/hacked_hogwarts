@@ -337,16 +337,19 @@ function closePopUp() {
   document.querySelector("#pop_up").classList.remove("show");
 }
 
-function showDetails(details) {
+function showDetails(student) {
   const popUp = document.querySelector("#pop_up");
   popUp.classList.add("show");
   // window.scrollTo(0, 0);
 
   popUp.querySelector(
     "#fullname"
-  ).textContent = `${details.firstName} ${details.nickName} ${details.middleName} ${details.lastName}`;
-  popUp.querySelector("#house").textContent = details.house;
-  popUp.querySelector("img").src = details.imgSrc;
+  ).textContent = `${student.firstName} ${student.nickName} ${student.middleName} ${student.lastName}`;
+  popUp.querySelector("#house").textContent = student.house;
+  popUp.querySelector("img").src = student.imgSrc;
+
+  const expelBtn = document.querySelector("#expel_btn");
+  expelBtn.addEventListener("click", expelledStudent);
 
   document.addEventListener("mouseup", function (elm) {
     const popUpContainer = document.querySelector("#pop_up .content");
@@ -354,6 +357,24 @@ function showDetails(details) {
       closePopUp();
     }
   });
+  if (student.prefect) {
+    popUp.querySelector(".student_status p:nth-child(3)").textContent = `Part of prefect: yes`;
+  } else {
+    popUp.querySelector(".student_status p:nth-child(3)").textContent = `Part of prefect: no`;
+  }
+
+  // --------- expelled ---------
+  function expelledStudent() {
+    console.log("expelledStudent");
+    document.querySelector("#expel_btn").removeEventListener("click", expelledStudent);
+
+    const indexOfStudent = allStudents.indexOf(student);
+    expelledList.push(allStudents.splice(indexOfStudent, 1));
+    buildList();
+    console.log(expelledList);
+
+    closePopUp();
+  }
 }
 
 // --------- searchbar ---------
@@ -453,8 +474,8 @@ function filterList(filteredList) {
     filteredList = allStudents.filter(isStudentsBlood);
   } else if (settings.filterBy === "muggle") {
     filteredList = allStudents.filter(isStudentsBlood);
-  } else if (settings.filterBy === "prefect") {
-    filteredList = allStudents.filter(isStudentsStatus);
+  } else if (settings.filterBy === "expelled") {
+    filteredList = allStudents.filter(isStudentsExpelled);
   }
 
   // if (settings.filterBy !== "all") {
@@ -489,8 +510,8 @@ function filterList(filteredList) {
     }
   }
 
-  function isStudentsStatus(student) {
-    if (student["prefect"] === settings.filterBy) {
+  function isStudentsExpelled(student) {
+    if (student["expelled"] === settings.filterBy) {
       return true;
     } else {
       return false;
