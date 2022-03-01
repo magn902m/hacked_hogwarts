@@ -20,6 +20,7 @@ const Student = {
   house: "",
   blood: "",
   prefect: false,
+  expelled: false,
 };
 
 const settings = {
@@ -243,56 +244,17 @@ function displayStudent(student) {
 
 // ------ prefect ------
 function tryToMakeAPrefect(selectedStudent) {
-  const prefects = allStudents.filter((student) => student.prefect);
+  const prefects = allStudents.filter(
+    (student) => student.prefect && student.house === selectedStudent.house
+  );
 
   const numberOfPrefects = prefects.length;
-  const other = prefects.filter((student) => student.house === selectedStudent.house).shift();
 
-  // if there is another of the same type
-  if (other !== undefined) {
-    console.log("There can be only one prefect of each house!");
-    removeOther(other);
-  } else if (numberOfPrefects >= 2) {
+  if (numberOfPrefects >= 2) {
     console.log("There can only be two prefects!");
     removeAorB(prefects[0], prefects[1]);
   } else {
     makePrefect(selectedStudent);
-  }
-
-  // console.log(`There are ${numberOfPrefects} prefects`);
-  // console.log(`The other prefect of this is ${other.firstName}`);
-  // console.log(other);
-  // makePrefect(selectedStudent);
-
-  function removeOther(other) {
-    // ask the user to ignore, or remove "other"
-    document.querySelector("#remove_other").classList.remove("dialog");
-    document.querySelector("#remove_other .close_dialog").addEventListener("click", closeDialog);
-    document
-      .querySelector("#remove_other [data-action=remove1]")
-      .addEventListener("click", clickRemoveOther);
-
-    // show names on buttons
-    document.querySelector("#remove_other .student1").textContent = other.firstName;
-
-    // if ignore - do nothing ..
-    function closeDialog() {
-      document.querySelector("#remove_other").classList.add("dialog");
-      document
-        .querySelector("#remove_other .close_dialog")
-        .removeEventListener("click", closeDialog);
-      document
-        .querySelector("#remove_other [data-action=remove1]")
-        .removeEventListener("click", clickRemoveOther);
-    }
-
-    // if remove other:
-    function clickRemoveOther() {
-      removeWinner(other);
-      makePrefect(selectedStudent);
-      buildList();
-      closeDialog();
-    }
   }
 
   function removeAorB(prefectA, prefectB) {
