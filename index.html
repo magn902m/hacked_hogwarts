@@ -89,24 +89,28 @@
         </table>
       </nav>
 
+      <!-- Popup for details on student -->
       <div id="pop_up">
         <section class="content">
           <button class="close">&times;</button>
           <article class="student_info">
-            <img src="" alt="" />
+            <img class="student_img" src="" alt="" />
+            <img class="crest_img" src="" alt="" />
             <article class="info_wrapper">
-              <h3>Fullname:</h3>
-              <p id="fullname"></p>
-
-              <h3>House:</h3>
-              <p id="house"></p>
+              <h3><span id="fullname"></span></h3>
+              <h4>House: <span id="house"></span></h4>
+              <p>Firstname: <span id="firstname"></span></p>
+              <p>Nickname: <span id="nickname"></span></p>
+              <p>Middlename: <span id="middlename"></span></p>
+              <p>Lastname: <span id="lastname"></span></p>
             </article>
           </article>
           <article class="student_status">
-            <h3>Student status:</h3>
+            <h3>Student status</h3>
             <p>Expelled:</p>
             <p>Part of prefect:</p>
-            <p>Part of inquisitorial squad:</p>
+            <p>Blood History:</p>
+            <p>Member of inquisitorial squad:</p>
           </article>
           <button id="expel_btn">Expel student</button>
         </section>
@@ -121,30 +125,7 @@
         </tr>
       </template>
 
-      <div id="pop_up">
-        <section class="content">
-          <button class="close">&times;</button>
-          <article class="student_info">
-            <img src="" alt="" />
-            <article class="info_wrapper">
-              <h3>Fullname:</h3>
-              <p id="fullname"></p>
-
-              <h3>House:</h3>
-              <p id="house"></p>
-            </article>
-          </article>
-          <article class="student_status">
-            <h3>Student status:</h3>
-            <p>Expelled:</p>
-            <p>Part of prefect:</p>
-            <p>Part of inquisitorial squad:</p>
-          </article>
-          <button id="expel_btn">Expel student</button>
-        </section>
-      </div>
-
-      <!-- Dialogs for handling too many prefects -->
+      <!-- Dialogs for handling too many prefects of each house -->
       <div id="remove_aorb">
         <section class="dialog_content">
           <button class="close_dialog">&times;</button>

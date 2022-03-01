@@ -21,6 +21,8 @@ const Student = {
   blood: "",
   prefect: false,
   expelled: false,
+  initPure: false,
+  inqSquad: false,
 };
 
 const settings = {
@@ -51,8 +53,6 @@ function regBtn() {
   document
     .querySelectorAll("[data-action='sort']")
     .forEach((btn) => btn.addEventListener("click", selectSort));
-
-  document.querySelector(".close").addEventListener("click", closePopUp);
 }
 
 // --------- getData ---------
@@ -171,6 +171,7 @@ function addBlood(bloodStatus) {
       student.blood = "half";
     } else if (pure.includes(student.lastName)) {
       student.blood = "pure";
+      student.initPure = true;
     } else {
       student.blood = "muggle";
     }
@@ -342,12 +343,60 @@ function showDetails(student) {
   popUp.classList.add("show");
   // window.scrollTo(0, 0);
 
+  // --------- student info ---------
+  popUp.querySelector(".student_img").src = student.imgSrc;
   popUp.querySelector(
     "#fullname"
   ).textContent = `${student.firstName} ${student.nickName} ${student.middleName} ${student.lastName}`;
   popUp.querySelector("#house").textContent = student.house;
-  popUp.querySelector("img").src = student.imgSrc;
+  popUp.querySelector("#firstname").textContent = student.firstName;
+  popUp.querySelector("#nickname").textContent = student.nickName;
+  popUp.querySelector("#middlename").textContent = student.middleName;
+  popUp.querySelector("#lastname").textContent = student.lastName;
 
+  // --------- show status ---------
+  popUp.querySelector(
+    ".student_status p:nth-child(2)"
+  ).textContent = `Expelled: ${student.expelled}`;
+  popUp.querySelector(
+    ".student_status p:nth-child(3)"
+  ).textContent = `Blood History: ${student.blood}`;
+
+  if (student.prefect) {
+    popUp.querySelector(".student_status p:nth-child(4)").textContent = `Part of prefect: Yes`;
+  } else {
+    popUp.querySelector(".student_status p:nth-child(4)").textContent = `Part of prefect: No`;
+  }
+
+  if (student.initPure) {
+    popUp.querySelector(
+      ".student_status p:nth-child(5)"
+    ).textContent = `Inq. squad: ${student.initPure}`;
+  } else {
+    popUp.querySelector(
+      ".student_status p:nth-child(5)"
+    ).textContent = `Inq. squad: ${student.initPure}`;
+  }
+
+  const crestImg = document.querySelector("#pop_up .crest_img");
+  const crestColor = document.querySelector("#pop_up .content");
+
+  if (student.house === "Gryffindor") {
+    crestImg.src = "assets/crests/gryffindor.png";
+    crestColor.style.borderColor = "#9c1203";
+  } else if (student.house === "Slytherin") {
+    crestImg.src = "assets/crests/slytherin.png";
+    crestColor.style.borderColor = "#033807";
+  } else if (student.house === "Hufflepuff") {
+    crestImg.src = "assets/crests/hufflepuff.png";
+    crestColor.style.borderColor = "#e3a000";
+  } else if (student.house === "Ravenclaw") {
+    crestImg.src = "assets/crests/ravenclaw.png";
+    crestColor.style.borderColor = "#00165e";
+  }
+
+  // --------- eventListener ---------
+  document.querySelector(".close").addEventListener("click", closePopUp);
   const expelBtn = document.querySelector("#expel_btn");
   expelBtn.addEventListener("click", expelledStudent);
 
@@ -357,11 +406,6 @@ function showDetails(student) {
       closePopUp();
     }
   });
-  if (student.prefect) {
-    popUp.querySelector(".student_status p:nth-child(3)").textContent = `Part of prefect: yes`;
-  } else {
-    popUp.querySelector(".student_status p:nth-child(3)").textContent = `Part of prefect: no`;
-  }
 
   // --------- expelled ---------
   function expelledStudent() {
@@ -404,48 +448,6 @@ function setFilter(filter) {
   buildList();
 }
 
-// function filterList(filteredList) {
-//   if (settings.filterBy === "gryffindor") {
-//     filteredList = allStudents.filter(isGryffindor);
-//   } else if (settings.filterBy === "slytherin") {
-//     filteredList = allStudents.filter(isSlytherin);
-//   } else if (settings.filterBy === "hufflepuff") {
-//     filteredList = allStudents.filter(isHufflepuff);
-//   } else if (settings.filterBy === "ravenclaw") {
-//     filteredList = allStudents.filter(isRavenclaw);
-//   }
-//   else if (settings.filterBy === "boys") {
-//     filteredList = allStudents.filter(isBoys);
-//   } else if (settings.filterBy === "girls") {
-//     filteredList = allStudents.filter(isGirls);
-//   }
-//   return filteredList;
-// }
-
-// function isGryffindor(student) {
-//   return student.house === "Gryffindor";
-// }
-
-// function isSlytherin(student) {
-//   return student.house === "Slytherin";
-// }
-
-// function isHufflepuff(student) {
-//   return student.house === "Hufflepuff";
-// }
-
-// function isRavenclaw(student) {
-//   return student.house === "Ravenclaw";
-// }
-
-// function isBoys(student) {
-//   return student.gender === "Boy";
-// }
-
-// function isGirls(student) {
-//   return student.gender === "Girl";
-// }
-
 function filterList(filteredList) {
   // filteredList = allStudents;
 
@@ -475,7 +477,7 @@ function filterList(filteredList) {
   } else if (settings.filterBy === "muggle") {
     filteredList = allStudents.filter(isStudentsBlood);
   } else if (settings.filterBy === "expelled") {
-    filteredList = allStudents.filter(isStudentsExpelled);
+    filteredList = expelledList.filter(isStudentsExpelled);
   }
 
   // if (settings.filterBy !== "all") {
@@ -510,8 +512,8 @@ function filterList(filteredList) {
     }
   }
 
-  function isStudentsExpelled(student) {
-    if (student["expelled"] === settings.filterBy) {
+  function isStudentsExpelled() {
+    if (settings.filterBy) {
       return true;
     } else {
       return false;

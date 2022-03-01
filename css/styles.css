@@ -138,7 +138,7 @@ td[data-field="prefect"][data-prefect="false"]::after {
   position: relative;
   background-color: #fff;
   padding: 1rem;
-  border: 1px solid #000;
+  border: 15px solid #000;
   border-radius: 1rem;
   box-shadow: 1px 1px 13px 2px;
 }
