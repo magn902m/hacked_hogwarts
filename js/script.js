@@ -430,6 +430,8 @@ function filterList(filteredList) {
 
   let filterOnHouse = "house";
   let filterOnGender = "gender";
+  let filterOnBlood = "blood";
+  // let filterOnStatus = "status";
 
   if (settings.filterBy === "all") {
     filteredList = allStudents;
@@ -445,6 +447,14 @@ function filterList(filteredList) {
     filteredList = allStudents.filter(isStudentsGender);
   } else if (settings.filterBy === "Girl") {
     filteredList = allStudents.filter(isStudentsGender);
+  } else if (settings.filterBy === "pure") {
+    filteredList = allStudents.filter(isStudentsBlood);
+  } else if (settings.filterBy === "half") {
+    filteredList = allStudents.filter(isStudentsBlood);
+  } else if (settings.filterBy === "muggle") {
+    filteredList = allStudents.filter(isStudentsBlood);
+  } else if (settings.filterBy === "prefect") {
+    filteredList = allStudents.filter(isStudentsStatus);
   }
 
   // if (settings.filterBy !== "all") {
@@ -465,6 +475,22 @@ function filterList(filteredList) {
 
   function isStudentsGender(student) {
     if (student[filterOnGender] === settings.filterBy) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function isStudentsBlood(student) {
+    if (student[filterOnBlood] === settings.filterBy) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function isStudentsStatus(student) {
+    if (student["prefect"] === settings.filterBy) {
       return true;
     } else {
       return false;
