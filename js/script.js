@@ -259,7 +259,7 @@ function tryToMakeAPrefect(selectedStudent) {
 
   function removeAorB(prefectA, prefectB) {
     // ask the user to ignnore, or remove A or B
-    document.querySelector("#remove_aorb").classList.remove("dialog");
+    document.querySelector("#remove_aorb").classList.add("show");
     document.querySelector("#remove_aorb .close_dialog").addEventListener("click", closeDialog);
     document
       .querySelector("#remove_aorb [data-action=remove1]")
@@ -274,7 +274,7 @@ function tryToMakeAPrefect(selectedStudent) {
 
     // if ignore - do nothing ..
     function closeDialog() {
-      document.querySelector("#remove_aorb").classList.add("dialog");
+      document.querySelector("#remove_aorb").classList.remove("show");
       document
         .querySelector("#remove_aorb .close_dialog")
         .removeEventListener("click", closeDialog);

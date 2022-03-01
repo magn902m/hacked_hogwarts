@@ -179,11 +179,11 @@ aside {
 }
 
 /* ------ prefects rules ------ */
-.dialog {
+#remove_aorb {
   display: none;
 }
 
-.dialog.show {
+#remove_aorb.show {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -196,7 +196,7 @@ aside {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.dialog_content {
+#remove_aorb .dialog_content {
   position: relative;
   background-color: #fff;
   padding: 1rem;
@@ -204,15 +204,3 @@ aside {
   border-radius: 1rem;
   box-shadow: 1px 1px 13px 2px;
 }
-
-/* .dialog .close_dialog {
-  -moz-appearance: none;
-  appearance: none;
-  position: absolute;
-  top: 4vw;
-  right: 4vw;
-  border: none;
-  background-color: transparent;
-  font-size: 90%;
-  color: darkgray;
-} */
