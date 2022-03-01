@@ -1,36 +1,37 @@
 --------- Step 1 ---------
 
-1. Setup files and directories.
-2. Download zip with imgs.
-3. Fetch the data, and console.log them.
+1. Setup files and directories. (Done)
+2. Download zip with imgs. (Done)
+3. Fetch the data, and console.log them. (Done)
 
 --------- Step 2 ---------
 
-1. Make the html like in the wireframe with btn etc.
-2. Clean fetch data, and console.log it.
-3. Show the clean data in the DOM.
+1. Make the html like in the wireframe with btn etc. (Done)
+2. Clean fetch data, and console.log it. (Done)
+3. Show the clean data in the DOM. (Done)
 
 --------- Step 3 ---------
 
-1. Make simple filter.
-2. Make simple sorting.
+1. Make simple filter. (Done)
+2. Make simple sorting. (Done)
+3. Make advanced filter.
 
 --------- Step 4 ---------
 
-1. Count how many students there are in each house.
-2. Count all students.
-3. Count how many there is displaying.
-4. Count expelled students.
+1. Count how many students there are in each house. (Done)
+2. Count all students. (Done)
+3. Count how many there is displaying. (Done)
+4. Count expelled students. (Done)
 
 --------- Step 5 ---------
 
-1. Make prefect work.
+1. Make prefect work. (Done)
 
 --------- Step 6 ---------
 
-1. Make blood status.
-2. Combine it with the cleanUpData function.
-3. Make a if, for seeing what blood status each student are.
+1. Make blood status. (Done)
+2. Combine it with the cleanUpData function. (Done)
+3. Make a if, for seeing what blood status each student are. (Done)
 
 --------- Step 7 ---------
 
@@ -43,8 +44,12 @@
 
 --------- Step 9 ---------
 
-1. HackTheSystem
+1. HackTheSystem();
 2. Make a object with yourself, and put it in the allStudents array.
 3. Control if the system is hacked, make a global flag.
 4. If the system is hacked, make a timeout there remove the Inq. on clicked.
 5. Blood status, make a function, there make a random number and select random between pure, half and muggle.
+
+--------- Step 10 ---------
+
+1. Adapt the popup to each house, with diffent colors
