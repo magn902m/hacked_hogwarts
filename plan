@@ -39,8 +39,12 @@
 
 --------- Step 8 ---------
 
-1. Inquisitorial Squad
+1. Inquisitorial Squad.
 
 --------- Step 9 ---------
 
 1. HackTheSystem
+2. Make a object with yourself, and put it in the allStudents array.
+3. Control if the system is hacked, make a global flag.
+4. If the system is hacked, make a timeout there remove the Inq. on clicked.
+5. Blood status, make a function, there make a random number and select random between pure, half and muggle.
