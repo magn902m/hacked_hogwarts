@@ -77,20 +77,21 @@ async function getData(urlList, urlBlood) {
   // const jsonDataBlood = await responseBlood.json();
   // console.log(jsonData);
   // return allStudents;
-  preparecleanUp(jsonDataList, jsonDataBlood);
+  prepareCleanUp(jsonDataList, jsonDataBlood);
 }
 
-function preparecleanUp(jsonDataList, jsonDataBlood) {
-  console.log(jsonDataList, jsonDataBlood);
+function prepareCleanUp(jsonDataList, jsonDataBlood) {
+  // console.log(jsonDataList, jsonDataBlood);
   const studentsList = jsonDataList;
   const bloodStatus = jsonDataBlood;
+  bloodHistory = bloodStatus;
   allStudents = studentsList.map(cleanUpData);
+  addBlood(bloodHistory);
   buildList(allStudents);
 }
 
 function cleanUpData(studentsList, bloodStatus) {
   // console.log(studentsList, bloodStatus);
-
   const student = Object.create(Student);
 
   // Variable for holding data and trim elm for whitespace
@@ -161,11 +162,30 @@ function cleanUpData(studentsList, bloodStatus) {
   return student;
 }
 
+function addBlood(bloodStatus) {
+  const pure = bloodStatus.pure;
+  const half = bloodStatus.half;
+
+  allStudents.forEach((student) => {
+    if (half.includes(student.lastName)) {
+      student.blood = "half";
+    } else if (pure.includes(student.lastName)) {
+      student.blood = "pure";
+    } else {
+      student.blood = "muggle";
+    }
+
+    // console.log(student.lastName + " " + student.blood);
+    // console.log("**************************************");
+  });
+}
+
 function displayList(students) {
   // console.table(students);
   // clear the list
   document.querySelector("#student_list tbody").innerHTML = "";
 
+  // console.table(students);
   // count students
   const studentCounted = studentCounter(students);
   displayCount(studentCounted);
