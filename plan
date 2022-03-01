@@ -28,8 +28,19 @@
 
 --------- Step 6 ---------
 
-1. Make blood status
+1. Make blood status.
+2. Combine it with the cleanUpData function.
+3. Make a if, for seeing what blood status each student are.
 
 --------- Step 7 ---------
 
 1. Expelled students by the btn in popup.
+2. Put expelled in a new array.
+
+--------- Step 8 ---------
+
+1. Inquisitorial Squad
+
+--------- Step 9 ---------
+
+1. HackTheSystem
