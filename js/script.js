@@ -9,28 +9,11 @@ let allStudents = [];
 let expelledList = [];
 let bloodHistory = [];
 
-// Student object
-const Student = {
-  firstName: "",
-  lastName: "",
-  middleName: "",
-  nickName: "",
-  gender: "",
-  imgSrc: "",
-  house: "",
-  blood: "",
-  prefect: false,
-  expelled: false,
-  initPure: false,
-  inqSquad: false,
-};
-
 const settings = {
   filterBy: "all",
   sortBy: "firstName",
   sortDir: "asc",
   search: "",
-  // direction: 1,
 };
 
 const HTML = {};
@@ -80,8 +63,24 @@ async function getData(url) {
 }
 
 function cleanUpData(studentsList) {
-  console.log(studentsList);
-  // console.log(studentsList, bloodStatus);
+  // console.log(studentsList);
+
+  // Student object
+  const Student = {
+    firstName: "",
+    lastName: "",
+    middleName: "",
+    nickName: "",
+    gender: "",
+    imgSrc: "",
+    house: "",
+    blood: "",
+    prefect: false,
+    expelled: false,
+    initPure: false,
+    inqSquad: false,
+  };
+
   const student = Object.create(Student);
 
   // Variable for holding data and trim elm for whitespace
@@ -173,8 +172,8 @@ function addBlood(bloodStatus) {
 
 function displayList(students) {
   // console.table(students);
-  // clear the list
   console.log(students);
+  // clear the list
   document.querySelector("#student_list tbody").innerHTML = "";
 
   // console.table(students);
@@ -231,21 +230,20 @@ function displayStudent(student) {
   // --------- Prefects ---------
   // append clone to list
   clone.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
-  // clone.querySelector("[data-field=inq-squad]").dataset.inqSquad = student.inqSquad;
+  clone.querySelector("[data-field=inq-squad]").dataset.inqSquad = student.inqSquad;
 
   // Make prefect and inq squad clickable
   clone.querySelector("[data-field=prefect]").addEventListener("click", selectPrefect);
   clone.querySelector("[data-field=inq-squad]").addEventListener("click", selectInqSquad);
+
   // ------ make inq squad ------
   function selectInqSquad() {
-    console.log("Try make inqSquad");
+    // console.log("Try make inqSquad");
     if (student.initPure) {
-      console.log(`inqSquad is ${student.inqSquad}`);
       if (student.inqSquad) {
         student.inqSquad = false;
       } else {
         student.inqSquad = true;
-        console.log("uuuupds");
       }
       buildList();
     }
@@ -462,7 +460,10 @@ function filterList(filteredList) {
   let filterOnHouse = "house";
   let filterOnGender = "gender";
   let filterOnBlood = "blood";
-  // let filterOnStatus = "status";
+  let filterOnPrefect = "prefect";
+  let filterOnSquad = "squad";
+  let filterOnExpelled = "expelled";
+  let filterOnNonExpelled = "nonexpelled";
 
   if (settings.filterBy === "all") {
     filteredList = allStudents;
@@ -484,8 +485,14 @@ function filterList(filteredList) {
     filteredList = allStudents.filter(isStudentsBlood);
   } else if (settings.filterBy === "muggle") {
     filteredList = allStudents.filter(isStudentsBlood);
+  } else if (settings.filterBy === "prefect") {
+    filteredList = expelledList.filter(isStudentsPrefect);
+  } else if (settings.filterBy === "squad") {
+    filteredList = expelledList.filter(isStudentsSquad);
   } else if (settings.filterBy === "expelled") {
     filteredList = expelledList.filter(isStudentsExpelled);
+  } else if (settings.filterBy === "nonexpelled") {
+    filteredList = expelledList.filter(isStudentsNonExpelled);
   }
 
   // if (settings.filterBy !== "all") {
@@ -520,8 +527,32 @@ function filterList(filteredList) {
     }
   }
 
-  function isStudentsExpelled() {
-    if (settings.filterBy) {
+  function isStudentsPrefect(student) {
+    if (student[filterOnPrefect] === settings.filterBy) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function isStudentsSquad(student) {
+    if (student[filterOnSquad] === settings.filterBy) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function isStudentsExpelled(student) {
+    if (student[filterOnNonExpelled] === settings.filterBy) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function isStudentsNonExpelled(student) {
+    if (student[filterOnExpelled] === settings.filterBy) {
       return true;
     } else {
       return false;
@@ -586,7 +617,7 @@ function buildList() {
   const filteredList = filterList(allStudents);
   const sortedList = sortList(filteredList);
   const searchedList = searchList(sortedList);
-  console.log(searchedList);
+  // console.log(searchedList);
 
   // return sortedList;
   // displayList(currentList);
