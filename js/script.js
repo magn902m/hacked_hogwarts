@@ -29,19 +29,31 @@ const settings = {
   filterBy: "all",
   sortBy: "firstName",
   sortDir: "asc",
+  search: "",
   // direction: 1,
 };
 
 const HTML = {};
 
 // --------- Setup ---------
-function setup() {
+async function setup() {
   // console.log("setup");
   const urlList = "https://petlatkea.dk/2021/hogwarts/students.json";
   const urlBlood = "https://petlatkea.dk/2021/hogwarts/families.json";
 
+  const studentList = await getData(urlList);
+  const bloodList = await getData(urlBlood);
+
+  allStudents = studentList.map(cleanUpData);
+  addBlood(bloodList);
+
+  // const combinedList = combineLists(studentList, bloodList);
+  // const cleandData = cleanUpData(combinedList);
+
+  buildList();
   regBtn();
-  getData(urlList, urlBlood);
+
+  // getData(urlList, urlBlood);
 }
 
 // --------- registerButtons ---------
@@ -55,8 +67,19 @@ function regBtn() {
     .forEach((btn) => btn.addEventListener("click", selectSort));
 }
 
+function combineLists(students, bloodList) {
+  allStudents = students.map(cleanUpData);
+  addBlood(bloodList);
+}
+
 // --------- getData ---------
-async function getData(urlList, urlBlood) {
+async function getData(url) {
+  const response = await fetch(url);
+  const jsonData = await response.json();
+  return jsonData;
+}
+
+async function getData2(urlList, urlBlood) {
   const jsonDataList = await loadFile1(urlList);
   async function loadFile1(urlList) {
     const responseList = await fetch(urlList);
@@ -80,17 +103,18 @@ async function getData(urlList, urlBlood) {
   prepareCleanUp(jsonDataList, jsonDataBlood);
 }
 
-function prepareCleanUp(jsonDataList, jsonDataBlood) {
-  // console.log(jsonDataList, jsonDataBlood);
-  const studentsList = jsonDataList;
-  const bloodStatus = jsonDataBlood;
-  bloodHistory = bloodStatus;
-  allStudents = studentsList.map(cleanUpData);
-  addBlood(bloodHistory);
-  buildList(allStudents);
-}
+// function prepareCleanUp(jsonDataList, jsonDataBlood) {
+//   // console.log(jsonDataList, jsonDataBlood);
+//   const studentsList = jsonDataList;
+//   const bloodStatus = jsonDataBlood;
+//   bloodHistory = bloodStatus;
+//   allStudents = studentsList.map(cleanUpData);
+//   addBlood(bloodHistory);
+//   buildList(allStudents);
+// }
 
-function cleanUpData(studentsList, bloodStatus) {
+function cleanUpData(studentsList) {
+  console.log(studentsList);
   // console.log(studentsList, bloodStatus);
   const student = Object.create(Student);
 
@@ -184,6 +208,7 @@ function addBlood(bloodStatus) {
 function displayList(students) {
   // console.table(students);
   // clear the list
+  console.log(students);
   document.querySelector("#student_list tbody").innerHTML = "";
 
   // console.table(students);
@@ -235,13 +260,30 @@ function displayStudent(student) {
   ).textContent = `${student.firstName} ${student.nickName} ${student.middleName}`;
   clone.querySelector("[data-field=lastname]").textContent = student.lastName;
   clone.querySelector("[data-field=house]").textContent = student.house;
-  // clone.querySelector("[data-field=prefect]").textContent = "🎖";
+  // clone.querySelector("[data-field=inq-squad]").textContent = "";
 
   // --------- Prefects ---------
   // append clone to list
   clone.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
-  // Make trophy clickable
+  // clone.querySelector("[data-field=inq-squad]").dataset.inqSquad = student.inqSquad;
+
+  // Make prefect and inq squad clickable
   clone.querySelector("[data-field=prefect]").addEventListener("click", selectPrefect);
+  clone.querySelector("[data-field=inq-squad]").addEventListener("click", selectInqSquad);
+  // ------ make inq squad ------
+  function selectInqSquad() {
+    console.log("Try make inqSquad");
+    if (student.initPure) {
+      console.log(`inqSquad is ${student.inqSquad}`);
+      if (student.inqSquad) {
+        student.inqSquad = false;
+      } else {
+        student.inqSquad = true;
+        console.log("uuuupds");
+      }
+      buildList();
+    }
+  }
 
   function selectPrefect() {
     if (student.prefect === true) {
@@ -256,13 +298,6 @@ function displayStudent(student) {
   clone
     .querySelector("[data-field=show_more]")
     .addEventListener("click", () => showDetails(student));
-
-  // clone
-  //   .querySelector("[data-field=firstname]")
-  //   .addEventListener("click", () => showDetails(student));
-  // clone
-  //   .querySelector("[data-field=lastname]")
-  //   .addEventListener("click", () => showDetails(student));
 
   document.querySelector("tbody").appendChild(clone);
 }
@@ -372,14 +407,14 @@ function showDetails(student) {
     popUp.querySelector(".student_status p:nth-child(4)").textContent = `Part of prefect: No`;
   }
 
-  if (student.initPure) {
+  if (student.inqSquad) {
     popUp.querySelector(
       ".student_status p:nth-child(5)"
-    ).textContent = `Inq. squad: ${student.initPure}`;
+    ).textContent = `Inq. squad: ${student.inqSquad}`;
   } else {
     popUp.querySelector(
       ".student_status p:nth-child(5)"
-    ).textContent = `Inq. squad: ${student.initPure}`;
+    ).textContent = `Inq. squad: ${student.inqSquad}`;
   }
 
   const crestImg = document.querySelector("#pop_up .crest_img");
@@ -428,16 +463,29 @@ function showDetails(student) {
 // --------- searchbar ---------
 function searchFieldInput(evt) {
   // write to the list with only those elemnts in the allAnimals array that has properties containing the search frase
-  displayList(
-    allStudents.filter((student) => {
-      // comparing in uppercase so that m is the same as M
-      return (
-        student.firstName.toUpperCase().includes(evt.target.value.toUpperCase()) ||
-        student.lastName.toUpperCase().includes(evt.target.value.toUpperCase()) ||
-        student.house.toUpperCase().includes(evt.target.value.toUpperCase())
-      );
-    })
-  );
+  settings.search = evt.target.value;
+  buildList();
+  // displayList(
+  //   allStudents.filter((student) => {
+  //     // comparing in uppercase so that m is the same as M
+  //     return (
+  //       student.firstName.toUpperCase().includes(evt.target.value.toUpperCase()) ||
+  //       student.lastName.toUpperCase().includes(evt.target.value.toUpperCase()) ||
+  //       student.house.toUpperCase().includes(evt.target.value.toUpperCase())
+  //     );
+  //   })
+  // );
+}
+
+function searchList(list) {
+  return list.filter((student) => {
+    // comparing in uppercase so that m is the same as M
+    return (
+      student.firstName.toUpperCase().includes(settings.search.toUpperCase()) ||
+      student.lastName.toUpperCase().includes(settings.search.toUpperCase()) ||
+      student.house.toUpperCase().includes(settings.search.toUpperCase())
+    );
+  });
 }
 
 // --------- filter ---------
@@ -580,11 +628,14 @@ function sortList(sortedList) {
 }
 
 function buildList() {
-  const currentList = filterList(allStudents);
-  const sortedList = sortList(currentList);
+  const filteredList = filterList(allStudents);
+  const sortedList = sortList(filteredList);
+  const searchedList = searchList(sortedList);
+  console.log(searchedList);
 
   // console.log(allStudents);
 
-  displayList(sortedList);
+  // return sortedList;
+  displayList(searchedList);
   // displayList(currentList);
 }

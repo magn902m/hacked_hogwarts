@@ -73,23 +73,6 @@ footer {
 }
 
 /* ------ sorting rules ------ */
-/* *** prefect styling *** */
-
-[data-field="prefect"] {
-  text-align: center;
-  cursor: pointer;
-  min-width: 2em;
-}
-
-/* style on prefect */
-td[data-field="prefect"]::after {
-  content: "🎖";
-}
-
-td[data-field="prefect"][data-prefect="false"]::after {
-  filter: grayscale(100%);
-}
-
 .nav_sorting {
   display: flex;
   justify-content: center;
@@ -114,6 +97,38 @@ td[data-field="prefect"][data-prefect="false"]::after {
 #student_list td {
   min-width: 200px;
 } */
+
+/* *** prefect styling *** */
+[data-field="prefect"] {
+  text-align: center;
+  cursor: pointer;
+  min-width: 2em;
+}
+
+/* style on prefect */
+td[data-field="prefect"]::after {
+  content: "🎖";
+}
+
+td[data-field="prefect"][data-prefect="false"]::after {
+  filter: grayscale(100%);
+}
+
+/* *** prefect inq-squad *** */
+[data-field="inq-squad"] {
+  text-align: center;
+  cursor: pointer;
+  min-width: 2em;
+}
+
+/* style on prefect */
+td[data-field="inq-squad"]::after {
+  content: "⭐";
+}
+
+td[data-field="inq-squad"][data-inq-squad="false"]::after {
+  filter: grayscale(100%);
+}
 
 /* ------ popup rules ------ */
 #pop_up {
