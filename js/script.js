@@ -254,11 +254,15 @@ function displayStudent(student) {
   }
 
   clone
-    .querySelector("[data-field=firstname]")
+    .querySelector("[data-field=show_more]")
     .addEventListener("click", () => showDetails(student));
-  clone
-    .querySelector("[data-field=lastname]")
-    .addEventListener("click", () => showDetails(student));
+
+  // clone
+  //   .querySelector("[data-field=firstname]")
+  //   .addEventListener("click", () => showDetails(student));
+  // clone
+  //   .querySelector("[data-field=lastname]")
+  //   .addEventListener("click", () => showDetails(student));
 
   document.querySelector("tbody").appendChild(clone);
 }
