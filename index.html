@@ -18,37 +18,86 @@
       <nav class="nav_filter">
         <div>
           <h3>Filter by house:</h3>
-          <button class="filter" data-action="filter" data-filter="Gryffindor">Gryffindor</button>
-          <button class="filter" data-action="filter" data-filter="Slytherin">Slytherin</button>
-          <button class="filter" data-action="filter" data-filter="Hufflepuff">Hufflepuff</button>
-          <button class="filter" data-action="filter" data-filter="Ravenclaw">Ravenclaw</button>
+          <button
+            class="filter"
+            data-action="filter"
+            data-filter_type="house"
+            data-filter="Gryffindor"
+          >
+            Gryffindor
+          </button>
+          <button
+            class="filter"
+            data-action="filter"
+            data-filter_type="house"
+            data-filter="Slytherin"
+          >
+            Slytherin
+          </button>
+          <button
+            class="filter"
+            data-action="filter"
+            data-filter_type="house"
+            data-filter="Hufflepuff"
+          >
+            Hufflepuff
+          </button>
+          <button
+            class="filter"
+            data-action="filter"
+            data-filter_type="house"
+            data-filter="Ravenclaw"
+          >
+            Ravenclaw
+          </button>
         </div>
         <div>
           <h3>Filter by status:</h3>
-          <button class="filter" data-action="filter" data-filter="prefect">Prefects</button>
-          <button class="filter" data-action="filter" data-filter="expelled">
+          <button class="filter" data-action="filter" data-filter_type="prefect" data-filter="true">
+            Prefects
+          </button>
+          <button
+            class="filter"
+            data-action="filter"
+            data-filter_type="expelled"
+            data-filter="true"
+          >
             Expelled students
           </button>
-          <button class="filter" data-action="filter" data-filter="nonexpelled">
-            Non Expelled students
-          </button>
-          <button class="filter" data-action="filter" data-filter="squad">
+          <button
+            class="filter"
+            data-action="filter"
+            data-filter_type="inqSquad"
+            data-filter="true"
+          >
             Inquisitorial squad
           </button>
         </div>
         <div>
           <h3>Filter by gender:</h3>
-          <button class="filter" data-action="filter" data-filter="Boy">Boys</button>
-          <button class="filter" data-action="filter" data-filter="Girl">Girls</button>
+          <button class="filter" data-action="filter" data-filter_type="gender" data-filter="Boy">
+            Boys
+          </button>
+          <button class="filter" data-action="filter" data-filter_type="gender" data-filter="Girl">
+            Girls
+          </button>
         </div>
         <div>
           <h3>Filter by blood status:</h3>
-          <button class="filter" data-action="filter" data-filter="pure">Pure blood</button>
-          <button class="filter" data-action="filter" data-filter="half">Half blood</button>
-          <button class="filter" data-action="filter" data-filter="muggle">Muggles</button>
+          <button class="filter" data-action="filter" data-filter_type="blood" data-filter="pure">
+            Pure blood
+          </button>
+          <button class="filter" data-action="filter" data-filter_type="blood" data-filter="half">
+            Half blood
+          </button>
+          <button class="filter" data-action="filter" data-filter_type="blood" data-filter="muggle">
+            Muggles
+          </button>
         </div>
         <div>
-          <button class="filter" data-action="filter" data-filter="all">Show all</button>
+          <button class="filter" data-action="filter" data-filter_type="all" data-filter="all">
+            Show all
+          </button>
         </div>
       </nav>
 

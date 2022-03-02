@@ -2,15 +2,54 @@
 // Trying out how to use module, but did not work
 // import getData from "./getData.js";
 
+let keySaved = "";
+
 document.addEventListener("DOMContentLoaded", setup);
+window.addEventListener("keydown", getHackPassword);
+function getHackPassword(event) {
+  const password = "hack";
+  const key = event.key;
+  const currentIndex = keySaved.length;
+  const keyToMatch = password.charAt(currentIndex);
+
+  if (key === keyToMatch) {
+    keySaved += key;
+  } else {
+    keySaved = "";
+  }
+  if (keySaved === password) {
+    hackTheSystem();
+  }
+}
+
+// Student object
+const Student = {
+  firstName: "",
+  lastName: "",
+  middleName: "",
+  nickName: "",
+  gender: "",
+  imgSrc: "",
+  house: "",
+  blood: "",
+  prefect: false,
+  expelled: false,
+  initPure: false,
+  inqSquad: false,
+};
+
 // --------- Variables ---------
 // Array for all students
 let allStudents = [];
 let expelledList = [];
 let bloodHistory = [];
 
+//hackTheSystem
+let isHacked = false;
+
 const settings = {
   filterBy: "all",
+  filterType: "all",
   sortBy: "firstName",
   sortDir: "asc",
   search: "",
@@ -64,22 +103,6 @@ async function getData(url) {
 
 function cleanUpData(studentsList) {
   // console.log(studentsList);
-
-  // Student object
-  const Student = {
-    firstName: "",
-    lastName: "",
-    middleName: "",
-    nickName: "",
-    gender: "",
-    imgSrc: "",
-    house: "",
-    blood: "",
-    prefect: false,
-    expelled: false,
-    initPure: false,
-    inqSquad: false,
-  };
 
   const student = Object.create(Student);
 
@@ -172,7 +195,7 @@ function addBlood(bloodStatus) {
 
 function displayList(students) {
   // console.table(students);
-  console.log(students);
+  // console.log(students);
   // clear the list
   document.querySelector("#student_list tbody").innerHTML = "";
 
@@ -239,14 +262,23 @@ function displayStudent(student) {
   // ------ make inq squad ------
   function selectInqSquad() {
     // console.log("Try make inqSquad");
-    if (student.initPure) {
-      if (student.inqSquad) {
-        student.inqSquad = false;
-      } else {
-        student.inqSquad = true;
+    if (isHacked) {
+      student.inqSquad = true;
+      setTimeout(removeInqSquad, 10000);
+    } else {
+      if (student.initPure) {
+        if (student.inqSquad) {
+          student.inqSquad = false;
+        } else {
+          student.inqSquad = true;
+        }
+        buildList();
       }
-      buildList();
     }
+  }
+  function removeInqSquad() {
+    student.inqSquad = false;
+    buildList();
   }
 
   function selectPrefect() {
@@ -416,9 +448,12 @@ function showDetails(student) {
     document.querySelector("#expel_btn").removeEventListener("click", expelledStudent);
 
     const indexOfStudent = allStudents.indexOf(student);
-    expelledList.push(allStudents.splice(indexOfStudent, 1));
+    const expStudent = allStudents.splice(indexOfStudent, 1)[0];
+    expStudent.expelled = true;
+    expelledList.push(expStudent);
     buildList();
     console.log(expelledList);
+    console.log(expStudent);
 
     closePopUp();
   }
@@ -445,121 +480,32 @@ function searchList(list) {
 // --------- filter ---------
 function selectFilter(event) {
   // console.log("selectFilter");
-  const filter = event.target.dataset.filter;
-  setFilter(filter);
+  const filterBy = event.target.dataset.filter;
+  const filterType = event.target.dataset.filter_type;
+  setFilter(filterBy, filterType);
 }
 
-function setFilter(filter) {
-  settings.filterBy = filter;
+function setFilter(filterBy, filterType) {
+  if (filterBy === "true") {
+    settings.filterBy = true;
+  } else {
+    settings.filterBy = filterBy;
+  }
+  settings.filterType = filterType;
   buildList();
 }
 
-function filterList(filteredList) {
+function filterList(student) {
   // filteredList = allStudents;
+  // console.log("type", settings.filterType, "by", settings.filterBy);
+  // console.log(student.prefect);
+  // console.log(student[settings.filterType]);
 
-  let filterOnHouse = "house";
-  let filterOnGender = "gender";
-  let filterOnBlood = "blood";
-  let filterOnPrefect = "prefect";
-  let filterOnSquad = "squad";
-  let filterOnExpelled = "expelled";
-  let filterOnNonExpelled = "nonexpelled";
-
-  if (settings.filterBy === "all") {
-    filteredList = allStudents;
-  } else if (settings.filterBy === "Gryffindor") {
-    filteredList = allStudents.filter(isStudentsHouse);
-  } else if (settings.filterBy === "Slytherin") {
-    filteredList = allStudents.filter(isStudentsHouse);
-  } else if (settings.filterBy === "Hufflepuff") {
-    filteredList = allStudents.filter(isStudentsHouse);
-  } else if (settings.filterBy === "Ravenclaw") {
-    filteredList = allStudents.filter(isStudentsHouse);
-  } else if (settings.filterBy === "Boy") {
-    filteredList = allStudents.filter(isStudentsGender);
-  } else if (settings.filterBy === "Girl") {
-    filteredList = allStudents.filter(isStudentsGender);
-  } else if (settings.filterBy === "pure") {
-    filteredList = allStudents.filter(isStudentsBlood);
-  } else if (settings.filterBy === "half") {
-    filteredList = allStudents.filter(isStudentsBlood);
-  } else if (settings.filterBy === "muggle") {
-    filteredList = allStudents.filter(isStudentsBlood);
-  } else if (settings.filterBy === "prefect") {
-    filteredList = expelledList.filter(isStudentsPrefect);
-  } else if (settings.filterBy === "squad") {
-    filteredList = expelledList.filter(isStudentsSquad);
-  } else if (settings.filterBy === "expelled") {
-    filteredList = expelledList.filter(isStudentsExpelled);
-  } else if (settings.filterBy === "nonexpelled") {
-    filteredList = expelledList.filter(isStudentsNonExpelled);
+  if (student[settings.filterType] === settings.filterBy || settings.filterBy === "all") {
+    return true;
+  } else {
+    return false;
   }
-
-  // if (settings.filterBy !== "all") {
-  //   filteredList = allStudents.filter(isStudentsHouse);
-  // } else {
-  //   filteredList = allStudents;
-  // }
-
-  function isStudentsHouse(student) {
-    // console.log("student", student[toFilterOn]);
-    // console.log("filter", settings.filterBy);
-    if (student[filterOnHouse] === settings.filterBy) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  function isStudentsGender(student) {
-    if (student[filterOnGender] === settings.filterBy) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  function isStudentsBlood(student) {
-    if (student[filterOnBlood] === settings.filterBy) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  function isStudentsPrefect(student) {
-    if (student[filterOnPrefect] === settings.filterBy) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  function isStudentsSquad(student) {
-    if (student[filterOnSquad] === settings.filterBy) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  function isStudentsExpelled(student) {
-    if (student[filterOnNonExpelled] === settings.filterBy) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  function isStudentsNonExpelled(student) {
-    if (student[filterOnExpelled] === settings.filterBy) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  return filteredList;
 }
 
 // --------- sorting ---------
@@ -604,6 +550,7 @@ function sortList(sortedList) {
 
   // closure
   function sortByProperty(a, b) {
+    // console.log(a[settings.sortBy] < b[settings.sortBy]);
     if (a[settings.sortBy] < b[settings.sortBy]) {
       return -1 * direction;
     } else {
@@ -613,8 +560,19 @@ function sortList(sortedList) {
   return sortedList;
 }
 
+function getSelectedList() {
+  if (settings.filterType === "expelled") {
+    // settings.filterType = "all";
+    // settings.filterBy = "all";
+    return expelledList;
+  } else {
+    return allStudents;
+  }
+}
+
 function buildList() {
-  const filteredList = filterList(allStudents);
+  const selecedList = getSelectedList();
+  const filteredList = selecedList.filter(filterList);
   const sortedList = sortList(filteredList);
   const searchedList = searchList(sortedList);
   // console.log(searchedList);
@@ -622,4 +580,27 @@ function buildList() {
   // return sortedList;
   // displayList(currentList);
   displayList(searchedList);
+}
+
+function hackTheSystem() {
+  console.log("hackTheSystem");
+  isHacked = true;
+  const mySelf = createMyself();
+  allStudents.push(mySelf);
+  console.log(allStudents);
+}
+
+function createMyself() {
+  const mySelf = Object.create(Student);
+  mySelf.firstName = "Magnus";
+  mySelf.lastName = "Nielsen";
+  mySelf.middleName = "James";
+  mySelf.nickName = `"Macen"`;
+  mySelf.gender = "boy";
+  mySelf.imgSrc = "assets/images/nielsen_m.jpg";
+  mySelf.house = "Gryffindor";
+  mySelf.blood = "Muggle";
+  console.log(mySelf);
+
+  return mySelf;
 }
