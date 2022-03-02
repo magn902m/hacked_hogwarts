@@ -37,20 +37,29 @@
 
 1. Expelled students by the btn in popup. (Done)
 2. Put expelled in a new array. (Done)
-3. Filter on expelled.
+3. Filter on expelled. (Done)
 
 --------- Step 8 ---------
 
-1. Inquisitorial Squad.
+1. Inquisitorial Squad. (Done)
+2. Make html to sort and filter by. (Done)
 
 --------- Step 9 ---------
 
-1. HackTheSystem();
-2. Make a object with yourself, and put it in the allStudents array.
-3. Control if the system is hacked, make a global flag.
+1. HackTheSystem(); (Done)
+2. Make a object with yourself, and put it in the allStudents array. (Done)
+3. Control if the system is hacked, make a global flag. (Done)
 4. If the system is hacked, make a timeout there remove the Inq. on clicked.
 5. Blood status, make a function, there make a random number and select random between pure, half and muggle.
 
 --------- Step 10 ---------
 
-1. Adapt the popup to each house, with diffent colors
+1. Adapt the popup to each house, with diffent colors. (Done)
+
+--------- Step 11 ---------
+
+1. Fixed all student pictures.
+
+--------- Step 12 ---------
+
+1. Styling of the hole list.
