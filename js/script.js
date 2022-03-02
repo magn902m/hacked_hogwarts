@@ -67,10 +67,10 @@ function regBtn() {
     .forEach((btn) => btn.addEventListener("click", selectSort));
 }
 
-function combineLists(students, bloodList) {
-  allStudents = students.map(cleanUpData);
-  addBlood(bloodList);
-}
+// function combineLists(students, bloodList) {
+//   allStudents = students.map(cleanUpData);
+//   addBlood(bloodList);
+// }
 
 // --------- getData ---------
 async function getData(url) {
@@ -78,40 +78,6 @@ async function getData(url) {
   const jsonData = await response.json();
   return jsonData;
 }
-
-async function getData2(urlList, urlBlood) {
-  const jsonDataList = await loadFile1(urlList);
-  async function loadFile1(urlList) {
-    const responseList = await fetch(urlList);
-    const jsonDataList = await responseList.json();
-    return jsonDataList;
-  }
-
-  const jsonDataBlood = await loadFile2(urlBlood);
-  async function loadFile2(urlBlood) {
-    const responseBlood = await fetch(urlBlood);
-    const jsonDataBlood = await responseBlood.json();
-    return jsonDataBlood;
-  }
-
-  // const responseList = await fetch(urlList);
-  // const jsonDataList = await responseList.json();
-  // const responseBlood = await fetch(urlBlood);
-  // const jsonDataBlood = await responseBlood.json();
-  // console.log(jsonData);
-  // return allStudents;
-  prepareCleanUp(jsonDataList, jsonDataBlood);
-}
-
-// function prepareCleanUp(jsonDataList, jsonDataBlood) {
-//   // console.log(jsonDataList, jsonDataBlood);
-//   const studentsList = jsonDataList;
-//   const bloodStatus = jsonDataBlood;
-//   bloodHistory = bloodStatus;
-//   allStudents = studentsList.map(cleanUpData);
-//   addBlood(bloodHistory);
-//   buildList(allStudents);
-// }
 
 function cleanUpData(studentsList) {
   console.log(studentsList);
@@ -462,23 +428,13 @@ function showDetails(student) {
 
 // --------- searchbar ---------
 function searchFieldInput(evt) {
-  // write to the list with only those elemnts in the allAnimals array that has properties containing the search frase
   settings.search = evt.target.value;
   buildList();
-  // displayList(
-  //   allStudents.filter((student) => {
-  //     // comparing in uppercase so that m is the same as M
-  //     return (
-  //       student.firstName.toUpperCase().includes(evt.target.value.toUpperCase()) ||
-  //       student.lastName.toUpperCase().includes(evt.target.value.toUpperCase()) ||
-  //       student.house.toUpperCase().includes(evt.target.value.toUpperCase())
-  //     );
-  //   })
-  // );
 }
 
 function searchList(list) {
   return list.filter((student) => {
+    // write to the list with only those elemnts in the allAnimals array that has properties containing the search frase
     // comparing in uppercase so that m is the same as M
     return (
       student.firstName.toUpperCase().includes(settings.search.toUpperCase()) ||
@@ -577,7 +533,6 @@ function filterList(filteredList) {
 
 // --------- sorting ---------
 // sort allStudents with the correct sort function and put info filterAnimals
-
 function selectSort(event) {
   const sortBy = event.target.dataset.sort;
   const sortDir = event.target.dataset.sortDirection;
@@ -633,9 +588,7 @@ function buildList() {
   const searchedList = searchList(sortedList);
   console.log(searchedList);
 
-  // console.log(allStudents);
-
   // return sortedList;
-  displayList(searchedList);
   // displayList(currentList);
+  displayList(searchedList);
 }
