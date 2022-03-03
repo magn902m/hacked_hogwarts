@@ -34,7 +34,6 @@ const Student = {
   blood: "",
   prefect: false,
   expelled: false,
-  initPure: false,
   inqSquad: false,
   hacker: null,
 };
@@ -184,7 +183,6 @@ function addBlood(bloodStatus) {
       student.blood = "half";
     } else if (pure.includes(student.lastName)) {
       student.blood = "pure";
-      student.initPure = true;
     } else {
       student.blood = "muggle";
     }
@@ -211,7 +209,7 @@ function displayList(students) {
 
 // Counting all the houses form all students, and looking at the lenght of allStudents, expelledList and students.
 function studentCounter(students) {
-  const result = {
+  const countStudents = {
     total: 0,
     Gryffindor: 0,
     Hufflepuff: 0,
@@ -222,23 +220,23 @@ function studentCounter(students) {
   };
 
   allStudents.forEach((student) => {
-    result[student.house]++;
+    countStudents[student.house]++;
   });
 
-  result.total = allStudents.length;
-  result.displaying = students.length;
+  countStudents.total = allStudents.length;
+  countStudents.displaying = students.length;
 
-  return result;
+  return countStudents;
 }
 
-function displayCount(studentConuted) {
-  document.querySelector("#counter_bar #total_count").textContent = studentConuted.total;
-  document.querySelector("#counter_bar #gryffindor_count").textContent = studentConuted.Gryffindor;
-  document.querySelector("#counter_bar #hufflepuff_count").textContent = studentConuted.Hufflepuff;
-  document.querySelector("#counter_bar #ravenclaw_count").textContent = studentConuted.Ravenclaw;
-  document.querySelector("#counter_bar #slytherin_count").textContent = studentConuted.Slytherin;
-  document.querySelector("#counter_bar #expelled_count").textContent = studentConuted.expelled;
-  document.querySelector("#counter_bar #displaying_count").textContent = studentConuted.displaying;
+function displayCount(studentCounted) {
+  document.querySelector("#counter_bar #total_count").textContent = studentCounted.total;
+  document.querySelector("#counter_bar #gryffindor_count").textContent = studentCounted.Gryffindor;
+  document.querySelector("#counter_bar #hufflepuff_count").textContent = studentCounted.Hufflepuff;
+  document.querySelector("#counter_bar #ravenclaw_count").textContent = studentCounted.Ravenclaw;
+  document.querySelector("#counter_bar #slytherin_count").textContent = studentCounted.Slytherin;
+  document.querySelector("#counter_bar #expelled_count").textContent = studentCounted.expelled;
+  document.querySelector("#counter_bar #displaying_count").textContent = studentCounted.displaying;
 }
 
 function displayStudent(student) {
@@ -260,6 +258,17 @@ function displayStudent(student) {
   clone.querySelector("[data-field=prefect]").addEventListener("click", selectPrefect);
   clone.querySelector("[data-field=inq-squad]").addEventListener("click", selectInqSquad);
 
+  // ------ make prefect ------
+  function selectPrefect() {
+    if (student.prefect === true) {
+      student.prefect = false;
+    } else {
+      tryToMakeAPrefect(student);
+      // student.prefect = true;
+    }
+    buildList();
+  }
+
   // ------ make inq squad ------
   function selectInqSquad() {
     // console.log("Try make inqSquad");
@@ -269,7 +278,7 @@ function displayStudent(student) {
 
       setTimeout(removeInqSquad, 10000);
     } else {
-      if (student.initPure) {
+      if (student.blood === "pure") {
         if (student.inqSquad) {
           student.inqSquad = false;
         } else {
@@ -278,20 +287,10 @@ function displayStudent(student) {
         buildList();
       }
     }
-  }
-  function removeInqSquad() {
-    student.inqSquad = false;
-    buildList();
-  }
-
-  function selectPrefect() {
-    if (student.prefect === true) {
-      student.prefect = false;
-    } else {
-      tryToMakeAPrefect(student);
-      // student.prefect = true;
+    function removeInqSquad() {
+      student.inqSquad = false;
+      buildList();
     }
-    buildList();
   }
 
   clone
@@ -557,7 +556,7 @@ function sortList(sortedList) {
 
   // closure
   function sortByProperty(a, b) {
-    console.log(a[settings.sortBy] < b[settings.sortBy]);
+    // console.log(a[settings.sortBy] < b[settings.sortBy]);
     if (a[settings.sortBy] < b[settings.sortBy]) {
       return -1 * direction;
     } else {
