@@ -36,6 +36,7 @@ const Student = {
   expelled: false,
   initPure: false,
   inqSquad: false,
+  hacker: null,
 };
 
 // --------- Variables ---------
@@ -264,6 +265,8 @@ function displayStudent(student) {
     // console.log("Try make inqSquad");
     if (isHacked) {
       student.inqSquad = true;
+      buildList();
+
       setTimeout(removeInqSquad, 10000);
     } else {
       if (student.initPure) {
@@ -433,6 +436,7 @@ function showDetails(student) {
   // --------- eventListener ---------
   document.querySelector(".close").addEventListener("click", closePopUp);
   const expelBtn = document.querySelector("#expel_btn");
+
   expelBtn.addEventListener("click", expelledStudent);
 
   document.addEventListener("mouseup", function (elm) {
@@ -444,17 +448,20 @@ function showDetails(student) {
 
   // --------- expelled ---------
   function expelledStudent() {
-    console.log("expelledStudent");
+    console.log("TryMakeExpelledStudent");
     document.querySelector("#expel_btn").removeEventListener("click", expelledStudent);
 
-    const indexOfStudent = allStudents.indexOf(student);
-    const expStudent = allStudents.splice(indexOfStudent, 1)[0];
-    expStudent.expelled = true;
-    expelledList.push(expStudent);
-    buildList();
-    console.log(expelledList);
-    console.log(expStudent);
-
+    if (student.hacker !== false) {
+      const indexOfStudent = allStudents.indexOf(student);
+      const expStudent = allStudents.splice(indexOfStudent, 1)[0];
+      expStudent.expelled = true;
+      expelledList.push(expStudent);
+      buildList();
+      console.log(expelledList);
+      console.log(expStudent);
+    } else {
+      console.log("Cant be hacked");
+    }
     closePopUp();
   }
 }
@@ -550,7 +557,7 @@ function sortList(sortedList) {
 
   // closure
   function sortByProperty(a, b) {
-    // console.log(a[settings.sortBy] < b[settings.sortBy]);
+    console.log(a[settings.sortBy] < b[settings.sortBy]);
     if (a[settings.sortBy] < b[settings.sortBy]) {
       return -1 * direction;
     } else {
@@ -571,8 +578,8 @@ function getSelectedList() {
 }
 
 function buildList() {
-  const selecedList = getSelectedList();
-  const filteredList = selecedList.filter(filterList);
+  const selectedList = getSelectedList();
+  const filteredList = selectedList.filter(filterList);
   const sortedList = sortList(filteredList);
   const searchedList = searchList(sortedList);
   // console.log(searchedList);
@@ -584,10 +591,16 @@ function buildList() {
 
 function hackTheSystem() {
   console.log("hackTheSystem");
-  isHacked = true;
-  const mySelf = createMyself();
-  allStudents.push(mySelf);
-  console.log(allStudents);
+  if (isHacked) {
+    console.log("The system is hacked");
+  } else {
+    isHacked = true;
+    ruinBlood();
+    const mySelf = createMyself();
+    allStudents.push(mySelf);
+    buildList();
+    // console.log(allStudents);
+  }
 }
 
 function createMyself() {
@@ -600,7 +613,21 @@ function createMyself() {
   mySelf.imgSrc = "assets/images/nielsen_m.jpg";
   mySelf.house = "Gryffindor";
   mySelf.blood = "Muggle";
-  console.log(mySelf);
+  mySelf.hacker = false;
+  // console.log(mySelf);
 
   return mySelf;
+}
+
+function ruinBlood() {
+  allStudents.forEach((student) => {
+    const randomNum = Math.floor(Math.random() * 3);
+    const randomArr = ["muggle", "half", "pure"];
+
+    if (student.blood === "half" || student.blood === "muggle") {
+      student.blood = "pure";
+    } else if (student.blood === "pure") {
+      student.blood = randomArr[randomNum];
+    }
+  });
 }
