@@ -224,6 +224,7 @@ function studentCounter(students) {
   });
 
   countStudents.total = allStudents.length;
+  countStudents.expelled = expelledList.length;
   countStudents.displaying = students.length;
 
   return countStudents;
@@ -278,7 +279,7 @@ function displayStudent(student) {
 
       setTimeout(removeInqSquad, 10000);
     } else {
-      if (student.blood === "pure") {
+      if (student.blood === "pure" || student.house === "Slytherin") {
         if (student.inqSquad) {
           student.inqSquad = false;
         } else {
