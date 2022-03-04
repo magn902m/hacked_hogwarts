@@ -149,10 +149,10 @@ function cleanUpData(studentsList) {
   student.gender = gender.charAt(0).toUpperCase() + gender.substring(1).toLowerCase();
 
   // Imgsrc: find the destation and make it all to lower case.
-  student.imgSrc = `./assets/images/${originalName
+  student.imgSrc = `../assets/images/students_img/${originalName
     .substring(0, originalName.indexOf(" "))
     .toLowerCase()}_.png`;
-  student.imgSrc = `./assets/images/${
+  student.imgSrc = `./assets/images/students_img/${
     originalName
       .substring(originalName.lastIndexOf(" ") + 1, originalName.lastIndexOf(" ") + 2)
       .toLowerCase() + originalName.substring(originalName.lastIndexOf(" ") + 2).toLowerCase()
@@ -602,7 +602,7 @@ function createMyself() {
   mySelf.middleName = "James";
   mySelf.nickName = `"Macen"`;
   mySelf.gender = "boy";
-  mySelf.imgSrc = "assets/images/nielsen_m.jpg";
+  mySelf.imgSrc = "../assets/images/students_img/nielsen_m.jpg";
   mySelf.house = "Gryffindor";
   mySelf.blood = "Muggle";
   mySelf.hacker = true;

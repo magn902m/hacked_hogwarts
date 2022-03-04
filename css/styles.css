@@ -32,6 +32,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-image: url("../assets/images/paper_texture.jpg");
+}
+
 img {
   height: auto;
   width: 100%;
@@ -55,7 +59,7 @@ h3 {
 p {
   margin-top: 0.3rem;
   margin-bottom: 0.3rem;
-  font-family: "4_privet_driveregular", "Times New Roman", Times, serif;
+  font-family: "IM Fell English", "Times New Roman", Times, serif;
   font-size: 1rem;
 }
 
@@ -190,6 +194,7 @@ td[data-field="inq-squad"][data-inq-squad="false"]::after {
   border: 15px solid #000;
   border-radius: 1rem;
   box-shadow: 1px 1px 13px 2px;
+  background-image: url("../assets/images/white_paper.jpg");
 }
 
 #pop_up .content img {
