@@ -2,41 +2,8 @@
 // Trying out how to use module, but did not work
 // import getData from "./getData.js";
 
-let keySaved = "";
-
 document.addEventListener("DOMContentLoaded", setup);
 window.addEventListener("keydown", getHackPassword);
-function getHackPassword(event) {
-  const password = "hack";
-  const key = event.key;
-  const currentIndex = keySaved.length;
-  const keyToMatch = password.charAt(currentIndex);
-
-  if (key === keyToMatch) {
-    keySaved += key;
-  } else {
-    keySaved = "";
-  }
-  if (keySaved === password) {
-    hackTheSystem();
-  }
-}
-
-// Student object
-const Student = {
-  firstName: "",
-  lastName: "",
-  middleName: "",
-  nickName: "",
-  gender: "",
-  imgSrc: "",
-  house: "",
-  blood: "",
-  prefect: false,
-  expelled: false,
-  inqSquad: false,
-  hacker: null,
-};
 
 // --------- Variables ---------
 // Array for all students
@@ -55,7 +22,7 @@ const settings = {
   search: "",
 };
 
-const HTML = {};
+let keySaved = "";
 
 // --------- Setup ---------
 async function setup() {
@@ -68,9 +35,6 @@ async function setup() {
 
   allStudents = studentList.map(cleanUpData);
   addBlood(bloodList);
-
-  // const combinedList = combineLists(studentList, bloodList);
-  // const cleandData = cleanUpData(combinedList);
 
   buildList();
   regBtn();
@@ -89,10 +53,22 @@ function regBtn() {
     .forEach((btn) => btn.addEventListener("click", selectSort));
 }
 
-// function combineLists(students, bloodList) {
-//   allStudents = students.map(cleanUpData);
-//   addBlood(bloodList);
-// }
+// --------- Control if password is true ---------
+function getHackPassword(event) {
+  const password = "hack";
+  const key = event.key;
+  const currentIndex = keySaved.length;
+  const keyToMatch = password.charAt(currentIndex);
+
+  if (key === keyToMatch) {
+    keySaved += key;
+  } else {
+    keySaved = "";
+  }
+  if (keySaved === password) {
+    hackTheSystem();
+  }
+}
 
 // --------- getData ---------
 async function getData(url) {
@@ -103,6 +79,22 @@ async function getData(url) {
 
 function cleanUpData(studentsList) {
   // console.log(studentsList);
+
+  // Student object
+  const Student = {
+    firstName: "",
+    lastName: "",
+    middleName: "",
+    nickName: "",
+    gender: "",
+    imgSrc: "",
+    house: "",
+    blood: "",
+    prefect: false,
+    expelled: false,
+    inqSquad: false,
+    hacker: null,
+  };
 
   const student = Object.create(Student);
 
@@ -451,7 +443,7 @@ function showDetails(student) {
     console.log("TryMakeExpelledStudent");
     document.querySelector("#expel_btn").removeEventListener("click", expelledStudent);
 
-    if (student.hacker !== false) {
+    if (student.hacker !== true) {
       const indexOfStudent = allStudents.indexOf(student);
       const expStudent = allStudents.splice(indexOfStudent, 1)[0];
       expStudent.expelled = true;
@@ -604,7 +596,7 @@ function hackTheSystem() {
 }
 
 function createMyself() {
-  const mySelf = Object.create(Student);
+  const mySelf = Object.create(allStudents);
   mySelf.firstName = "Magnus";
   mySelf.lastName = "Nielsen";
   mySelf.middleName = "James";
@@ -613,7 +605,7 @@ function createMyself() {
   mySelf.imgSrc = "assets/images/nielsen_m.jpg";
   mySelf.house = "Gryffindor";
   mySelf.blood = "Muggle";
-  mySelf.hacker = false;
+  mySelf.hacker = true;
   // console.log(mySelf);
 
   return mySelf;
