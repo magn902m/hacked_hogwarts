@@ -26,126 +26,138 @@
     </header>
 
     <main>
-      <nav class="nav_filter">
-        <div>
-          <h3>Filter by house:</h3>
-          <button
-            class="filter"
-            data-action="filter"
-            data-filter_type="house"
-            data-filter="Gryffindor"
-          >
-            Gryffindor
-          </button>
-          <button
-            class="filter"
-            data-action="filter"
-            data-filter_type="house"
-            data-filter="Slytherin"
-          >
-            Slytherin
-          </button>
-          <button
-            class="filter"
-            data-action="filter"
-            data-filter_type="house"
-            data-filter="Hufflepuff"
-          >
-            Hufflepuff
-          </button>
-          <button
-            class="filter"
-            data-action="filter"
-            data-filter_type="house"
-            data-filter="Ravenclaw"
-          >
-            Ravenclaw
-          </button>
-        </div>
-        <div>
-          <h3>Filter by status:</h3>
-          <button class="filter" data-action="filter" data-filter_type="prefect" data-filter="true">
-            Prefects
-          </button>
-          <button
-            class="filter"
-            data-action="filter"
-            data-filter_type="expelled"
-            data-filter="true"
-          >
-            Expelled students
-          </button>
-          <button
-            class="filter"
-            data-action="filter"
-            data-filter_type="inqSquad"
-            data-filter="true"
-          >
-            Inquisitorial squad
-          </button>
-        </div>
-        <div>
-          <h3>Filter by gender:</h3>
-          <button class="filter" data-action="filter" data-filter_type="gender" data-filter="Boy">
-            Boys
-          </button>
-          <button class="filter" data-action="filter" data-filter_type="gender" data-filter="Girl">
-            Girls
-          </button>
-        </div>
-        <div>
-          <h3>Filter by blood status:</h3>
-          <button class="filter" data-action="filter" data-filter_type="blood" data-filter="pure">
-            Pure blood
-          </button>
-          <button class="filter" data-action="filter" data-filter_type="blood" data-filter="half">
-            Half blood
-          </button>
-          <button class="filter" data-action="filter" data-filter_type="blood" data-filter="muggle">
-            Muggles
-          </button>
-        </div>
-        <div>
+
+      <nav id="nav_main">
+        <nav class="nav_filter">
+          <div>
+            <h3>Filter by house:</h3>
+            <button
+              class="filter"
+              data-action="filter"
+              data-filter_type="house"
+              data-filter="Gryffindor"
+            >
+              Gryffindor
+            </button>
+            <button
+              class="filter"
+              data-action="filter"
+              data-filter_type="house"
+              data-filter="Slytherin"
+            >
+              Slytherin
+            </button>
+            <button
+              class="filter"
+              data-action="filter"
+              data-filter_type="house"
+              data-filter="Hufflepuff"
+            >
+              Hufflepuff
+            </button>
+            <button
+              class="filter"
+              data-action="filter"
+              data-filter_type="house"
+              data-filter="Ravenclaw"
+            >
+              Ravenclaw
+            </button>
+          </div>
+          <div>
+            <h3>Filter by status:</h3>
+            <button class="filter" data-action="filter" data-filter_type="prefect" data-filter="true">
+              Prefects
+            </button>
+            <button
+              class="filter"
+              data-action="filter"
+              data-filter_type="expelled"
+              data-filter="true"
+            >
+              Expelled students
+            </button>
+            <button
+              class="filter"
+              data-action="filter"
+              data-filter_type="inqSquad"
+              data-filter="true"
+            >
+              Inquisitorial squad
+            </button>
+          </div>
+          <div>
+            <h3>Filter by gender:</h3>
+            <button class="filter" data-action="filter" data-filter_type="gender" data-filter="Boy">
+              Boys
+            </button>
+            <button class="filter" data-action="filter" data-filter_type="gender" data-filter="Girl">
+              Girls
+            </button>
+          </div>
+          <div>
+            <h3>Filter by blood status:</h3>
+            <button class="filter" data-action="filter" data-filter_type="blood" data-filter="pure">
+              Pure blood
+            </button>
+            <button class="filter" data-action="filter" data-filter_type="blood" data-filter="half">
+              Half blood
+            </button>
+            <button class="filter" data-action="filter" data-filter_type="blood" data-filter="muggle">
+              Muggles
+            </button>
+          </div>
+        </nav>
+    
+        <div class="search_sort">
+        <nav class="nav_search">
+          <div class="search_wrapper">
+            <h3>Searchbar:</h3>
+            <input type="text" name="searchbar" id="searchbar" placeholder="Search here..." />
+          </div>
+        </nav>
+    
+        <nav class="nav_sorting">
+          <h3>Sort by:</h3>
+          <select name="sort" id="sort">
+            <option value="" selected>Sort by:</option>
+            <option value="student_id" data-sort-direction="asc" data-action="sort">
+              Student ID
+            </option>
+            <option value="firstName" data-sort-direction="asc" data-action="sort">Firstname</option>
+            <option value="lastName" data-sort-direction="asc" data-action="sort">Lastname</option>
+            <option value="house" data-sort-direction="asc" data-action="sort">House A-Z</option>
+            <option value="prefect" data-sort-direction="asc" data-action="sort">Prefect A-Z</option>
+            <option value="inqSquad" data-sort-direction="asc" data-action="sort">Inq. Squad</option>
+          </select>
+        </nav>
+        <div class="all">
           <button class="filter" data-action="filter" data-filter_type="all" data-filter="all">
             Show all
           </button>
         </div>
-      </nav>
-
-      <nav class="nav_search">
-        <div class="search_wrapper">
-          <h3>Searchbar</h3>
-          <input type="text" name="searchbar" id="searchbar" placeholder="Search here..." />
         </div>
-      </nav>
+        </nav>
+    
+        <aside id="counter_bar">
+            <div class="count_status">
+            <h3>Status of Students</h3>
+            <hr>
+            <p>Total Num. of Students: <span id="total_count"></span></p>
+            <p>Expelled Students: <span id="expelled_count"></span></p>
+            <p>Displayed Students: <span id="displaying_count"></span></p>
+          </div>
+          <div class="conut_house">
+            <h3>Members in each House</h3>
+            <hr>
+            <p>Gryffindor: <span id="gryffindor_count"></span></p>
+            <p>Hufflepuff: <span id="hufflepuff_count"></span></p>
+            <p>Ravenclaw: <span id="ravenclaw_count"></span></p>
+            <p>Slytherin: <span id="slytherin_count"></span></p>
+          </div>
+        </aside>
 
-      <nav class="nav_sorting">
-        <select name="sort" id="sort">
-          <option value="" selected>Sort by:</option>
-          <option value="student_id" data-sort-direction="asc" data-action="sort">
-            Student ID
-          </option>
-          <option value="firstName" data-sort-direction="asc" data-action="sort">Firstname</option>
-          <option value="lastName" data-sort-direction="asc" data-action="sort">Lastname</option>
-          <option value="house" data-sort-direction="asc" data-action="sort">House A-Z</option>
-          <option value="prefect" data-sort-direction="asc" data-action="sort">Prefect A-Z</option>
-          <option value="inqSquad" data-sort-direction="asc" data-action="sort">Inq. Squad</option>
-        </select>
-      </nav>
-
-      <aside>
-        <div id="counter_bar">
-          <p>Total: <span id="total_count"></span></p>
-          <p>Gryffindor: <span id="gryffindor_count"></span></p>
-          <p>Hufflepuff: <span id="hufflepuff_count"></span></p>
-          <p>Ravenclaw: <span id="ravenclaw_count"></span></p>
-          <p>Slytherin: <span id="slytherin_count"></span></p>
-          <p>Expelled: <span id="expelled_count"></span></p>
-          <p>Displaying: <span id="displaying_count"></span></p>
-        </div>
-      </aside>
-
-      <hr />
+        <hr>
 
       <section id="student_list"></section>
 
@@ -241,9 +253,8 @@
           </p>
         </section>
       </div>
+      <hr />
     </main>
-
-    <hr />
 
     <footer>
       <img class="logo" src="../assets/images/hogwarts-logo.png" alt="" />
