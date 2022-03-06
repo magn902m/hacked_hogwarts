@@ -119,6 +119,20 @@
         </div>
       </nav>
 
+      <nav class="nav_sorting">
+        <select name="sort" id="sort">
+          <option value="" selected>Sort by:</option>
+          <option value="student_id" data-sort-direction="asc" data-action="sort">
+            Student ID
+          </option>
+          <option value="firstName" data-sort-direction="asc" data-action="sort">Firstname</option>
+          <option value="lastName" data-sort-direction="asc" data-action="sort">Lastname</option>
+          <option value="house" data-sort-direction="asc" data-action="sort">House A-Z</option>
+          <option value="prefect" data-sort-direction="asc" data-action="sort">Prefect A-Z</option>
+          <option value="inqSquad" data-sort-direction="asc" data-action="sort">Inq. Squad</option>
+        </select>
+      </nav>
+
       <aside>
         <div id="counter_bar">
           <p>Total: <span id="total_count"></span></p>
@@ -133,61 +147,82 @@
 
       <hr />
 
-      <nav class="nav_sorting">
-        <table id="student_list">
-          <thead>
-            <tr id="sorting">
-              <th data-action="sort" data-sort-direction="asc" data-sort="prefect">🎖</th>
-              <th data-action="sort" data-sort-direction="asc" data-sort="inqSquad">⭐</th>
-              <th data-action="sort" data-sort-direction="asc" data-sort="firstName">Firstname</th>
-              <th data-action="sort" data-sort-direction="asc" data-sort="lastName">Lastname</th>
-              <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
-              <th>Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- student template will be copied and inserted here -->
-          </tbody>
-        </table>
-      </nav>
+      <section id="student_list"></section>
+
+      <template id="student">
+        <article class="student_container">
+          <img
+              data-field="student_img"
+              src="assets/images/students_img/potter_h.png"
+              alt="Student picture"
+            />
+            <div class="info">
+              <h4>Fullname: <span class="fullname" data-field="fullname"></span></h4>
+              <h4>House: <span class="house" data-field="house"></span></h4>
+              <p class="student_id"></p>
+              <button class="show_more" data-field="show_more">Show more</button>
+            </div>
+          </div>
+          <div class="badges">
+            <img src="/assets/crests/gryffindor.png" alt="crests" data-badges="crest" />
+            <img
+              src="/assets/crests/prefect.png"
+              alt="prefect"
+              data-badges="prefect"
+              data-prefect="false"
+            />
+            <img
+              src="/assets/crests/inq_squad.png"
+              alt="inq. squad"
+              data-badges="inq-squad"
+              data-inq-squad="false"
+            />
+          </div>
+        </article>
+      </template>
 
       <!-- Popup for details on student -->
       <div id="pop_up">
-        <section class="content">
+        <section class="before_content">
           <button class="close">&times;</button>
-          <article class="student_info">
-            <img class="student_img" src="" alt="" />
-            <img class="crest_img" src="" alt="" />
-            <article class="info_wrapper">
-              <h3><span id="fullname"></span></h3>
-              <h4>House: <span id="house"></span></h4>
-              <p>Firstname: <span id="firstname"></span></p>
-              <p>Nickname: <span id="nickname"></span></p>
-              <p>Middlename: <span id="middlename"></span></p>
-              <p>Lastname: <span id="lastname"></span></p>
+          <section class="content">
+            <article class="student_info">
+              <div class="top">
+                <img class="student_img" src="" alt="" />
+                <img class="crest_img" src="" alt="crests" data-badges="crest" />
+              </div>
+              <article class="info_wrapper">
+                <h3><span id="fullname"></span></h3>
+                <h4>House: <span id="house"></span></h4>
+                <p>Firstname: <span id="firstname"></span></p>
+                <p>Nickname: <span id="nickname"></span></p>
+                <p>Middlename: <span id="middlename"></span></p>
+                <p>Lastname: <span id="lastname"></span></p>
+                <p>Blood History: <span class="blood"></span></p>
+              </article>
             </article>
-          </article>
-          <article class="student_status">
-            <h3>Student status</h3>
-            <p>Expelled:</p>
-            <p>Part of prefect:</p>
-            <p>Blood History:</p>
-            <p>Member of inquisitorial squad:</p>
-          </article>
-          <button id="expel_btn">Expel student</button>
+            <div class="badges">
+              <img
+                src="/assets/crests/prefect.png"
+                alt="prefect"
+                data-badges="prefect"
+                data-prefect=""
+              />
+              <img
+                src="/assets/crests/inq_squad.png"
+                alt="inq. squad"
+                data-badges="inq-squad"
+                data-inq-squad=""
+              />
+            </div>
+            <div class="badges_btn">
+              <button id="prefect" data-field="prefect">Prefect</button>
+              <button id="squad" data-field="inq-squad">Inq. squad</button>
+              <button id="expel_btn" data-field="expel_btn" data-expel="false">Expel</button>
+            </div>
+          </section>
         </section>
       </div>
-
-      <template id="student">
-        <tr>
-          <td data-field="prefect" data-prefect="false"></td>
-          <td data-field="inq-squad" data-inq-squad="false"></td>
-          <td data-field="firstname">Firstname</td>
-          <td data-field="lastname">Lastname</td>
-          <td data-field="house">House</td>
-          <td data-field="show_more">Info</td>
-        </tr>
-      </template>
 
       <!-- Dialogs for handling too many prefects of each house -->
       <div id="remove_aorb">

@@ -36,6 +36,10 @@ body {
   background-image: url("../assets/images/paper_texture.jpg");
 }
 
+main {
+  padding: 2rem;
+}
+
 img {
   height: auto;
   width: 100%;
@@ -54,6 +58,10 @@ h3 {
   margin-bottom: 0.3rem;
   font-family: "4_privet_driveregular", "Times New Roman", Times, serif;
   font-size: 1rem;
+}
+
+h4 {
+  font-family: "IM Fell English", "Times New Roman", Times, serif;
 }
 
 p {
@@ -80,12 +88,42 @@ footer {
 }
 
 /* ------ student list rules ------ */
-#student_list tbody tr:nth-child(2n + 1) td {
-  background-color: #dbdbdb;
+.student_container {
+  /* display: flex; */
+  background-color: antiquewhite;
+  padding: 0.5rem;
+  /* margin: 1rem; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  grid-template-rows: repeat(2, 1fr);
+  border-radius: 1rem;
 }
 
-#student_list tbody tr td {
-  padding: 0.4rem;
+#student_list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.student_container [data-field="student_img"] {
+  grid-column: 1/2;
+}
+
+.student_container img:not([data-field="student_img"]) {
+  width: 30%;
+}
+.badges {
+  grid-column: 1/4;
+}
+.info {
+  grid-column: 2/4;
+}
+
+/****************/
+
+#student_list .info span {
+  font-weight: 100;
 }
 
 /* ------ filter rules ------ */
@@ -126,16 +164,6 @@ footer {
   /* △ */
 }
 
-#student_list th,
-#student_list tr td {
-  min-width: 2rem;
-}
-
-/* 
-#student_list td {
-  min-width: 200px;
-} */
-
 /* *** prefect styling *** */
 [data-field="prefect"] {
   text-align: center;
@@ -144,30 +172,22 @@ footer {
 }
 
 /* style on prefect */
-td[data-field="prefect"]::after {
-  content: "🎖";
-}
-
-td[data-field="prefect"][data-prefect="false"]::after {
+img[data-badges="prefect"][data-prefect="false"],
+img[data-badges="inq-squad"][data-inq-squad="false"] {
   filter: grayscale(100%);
 }
 
-/* *** prefect inq-squad *** */
-[data-field="inq-squad"] {
-  text-align: center;
-  cursor: pointer;
-  min-width: 2em;
+.student_container[data-expelled="true"]::after {
+  content: "expelled";
+  z-index: 1;
+  font-size: 2rem;
 }
 
-/* style on prefect */
-td[data-field="inq-squad"]::after {
-  content: "⭐";
+.expelled:after {
+  content: "expelled";
+  z-index: 1;
+  font-size: 2rem;
 }
-
-td[data-field="inq-squad"][data-inq-squad="false"]::after {
-  filter: grayscale(100%);
-}
-
 /* ------ popup rules ------ */
 #pop_up {
   display: none;
@@ -195,17 +215,40 @@ td[data-field="inq-squad"][data-inq-squad="false"]::after {
   border-radius: 1rem;
   box-shadow: 1px 1px 13px 2px;
   background-image: url("../assets/images/white_paper.jpg");
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 80vw;
+}
+
+#pop_up .top {
+  display: flex;
+  justify-content: space-between;
+}
+
+#pop_up .student_info {
+  grid-column: 1/4;
 }
 
 #pop_up .content img {
-  width: 10rem;
+  width: 5rem;
 }
 
+#pop_up .badges_btn {
+  grid-column: 1/3;
+  place-self: center;
+}
+
+#pop_up .badges {
+  place-self: center;
+}
+
+/* 
 #pop_up .student_info {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
-}
+} */
 
 /* ------ counter rules ------ */
 aside {
@@ -229,6 +272,14 @@ aside {
   /* ------ counter bar rules ------ */
   #counter_bar {
     flex-direction: row;
+  }
+
+  #pop_up .content img {
+    width: 10rem;
+  }
+
+  #pop_up .content {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
