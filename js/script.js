@@ -355,6 +355,10 @@ function showDetails(student) {
   const popUp = document.querySelector("#pop_up");
   popUp.classList.add("show");
 
+  if (student.expelled) {
+    popUp.querySelector("#pop_up .content").classList.add("expelled");
+  }
+
   // --------- student info ---------
   popUp.querySelector(".student_img").src = student.imgSrc;
   popUp.querySelector(
@@ -385,10 +389,6 @@ function showDetails(student) {
     crestColor.style.borderColor = "#00165e";
   }
 
-  if (student.expelled) {
-    popUp.querySelector("#pop_up .content").classList.add("expelled");
-  }
-
   // --------- Prefects ---------
   // append popUp to list
   popUp.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
@@ -396,13 +396,15 @@ function showDetails(student) {
 
   //--------- eventListener ---------
   // Make prefect and inq squad clickable
-  popUp.querySelector("[data-field=prefect]").addEventListener("click", selectPrefect);
-  popUp.querySelector("[data-field=inq-squad]").addEventListener("click", selectInqSquad);
-  popUp.querySelector("#prefect_btn").addEventListener("click", selectPrefect);
-  popUp.querySelector("#squad_btn").addEventListener("click", selectInqSquad);
+  if (student.expelled === false || student.hacker === true) {
+    popUp.querySelector("[data-field=prefect]").addEventListener("click", selectPrefect);
+    popUp.querySelector("[data-field=inq-squad]").addEventListener("click", selectInqSquad);
+    popUp.querySelector("#prefect_btn").addEventListener("click", selectPrefect);
+    popUp.querySelector("#squad_btn").addEventListener("click", selectInqSquad);
+    // expel
+    document.querySelector("#expel_btn").addEventListener("click", expelledStudent);
+  }
 
-  // expel
-  document.querySelector("#expel_btn").addEventListener("click", expelledStudent);
   // closing
   document.querySelector(".close").addEventListener("click", closePopUp);
 
@@ -734,7 +736,7 @@ function createMyself() {
   mySelf.middleName = "Macen";
   mySelf.nickName = `"Hacker"`;
   mySelf.gender = "boy";
-  mySelf.imgSrc = "../assets/images/students_img/nielsen_m.jpg";
+  mySelf.imgSrc = "assets/images/students_img/nielsen_m.jpg";
   mySelf.house = "Gryffindor";
   mySelf.blood = "Muggle";
   mySelf.hacker = true;
