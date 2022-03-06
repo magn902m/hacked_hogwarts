@@ -264,58 +264,58 @@ function displayStudent(student) {
     badgesCrest.src = "assets/crests/ravenclaw.png";
   }
 
-  // --------- Prefects ---------
-  // Make prefect and inq squad clickable
-  clone.querySelector("[data-field=prefect]").addEventListener("click", selectPrefect);
-  clone.querySelector("[data-field=inq-squad]").addEventListener("click", selectInqSquad);
+  // // --------- Prefects ---------
+  // // Make prefect and inq squad clickable
+  // clone.querySelector("[data-field=prefect]").addEventListener("click", selectPrefect);
+  // clone.querySelector("[data-field=inq-squad]").addEventListener("click", selectInqSquad);
 
-  // ------ make prefect ------
-  function selectPrefect() {
-    document
-      .querySelector(".student_container [data-field=prefect]")
-      .removeEventListener("click", selectPrefect);
-    console.log("Try make prefect", student.firstName);
+  // // ------ make prefect ------
+  // function selectPrefect() {
+  //   document
+  //     .querySelector(".student_container [data-field=prefect]")
+  //     .removeEventListener("click", selectPrefect);
+  //   console.log("Try make prefect", student.firstName);
 
-    if (student.prefect === true) {
-      student.prefect = false;
-    } else {
-      tryToMakeAPrefect(student);
-      // student.prefect = true;
-    }
-    console.log(student.firstName, "is now", student.prefect, "in prefect");
-    buildList();
-  }
+  //   if (student.prefect === true) {
+  //     student.prefect = false;
+  //   } else {
+  //     tryToMakeAPrefect(student);
+  //     // student.prefect = true;
+  //   }
+  //   console.log(student.firstName, "is now", student.prefect, "in prefect");
+  //   buildList();
+  // }
 
-  // ------ make inq squad ------
-  function selectInqSquad() {
-    document
-      .querySelector(".student_container [data-field=inq-squad]")
-      .removeEventListener("click", selectInqSquad);
+  // // ------ make inq squad ------
+  // function selectInqSquad() {
+  //   document
+  //     .querySelector(".student_container [data-field=inq-squad]")
+  //     .removeEventListener("click", selectInqSquad);
 
-    if (isHacked) {
-      student.inqSquad = true;
-      buildList();
+  //   if (isHacked) {
+  //     student.inqSquad = true;
+  //     buildList();
 
-      setTimeout(removeInqSquad, 3000);
-    } else {
-      if (student.blood === "pure" || student.house === "Slytherin") {
-        if (student.inqSquad) {
-          student.inqSquad = false;
-        } else {
-          student.inqSquad = true;
-        }
-        buildList();
-      } else {
-        alert(`${student.firstName} can't be in the Inq. squad!
-        Only pureblood and Slytherin are allowed!`);
-      }
-    }
+  //     setTimeout(removeInqSquad, 3000);
+  //   } else {
+  //     if (student.blood === "pure" || student.house === "Slytherin") {
+  //       if (student.inqSquad) {
+  //         student.inqSquad = false;
+  //       } else {
+  //         student.inqSquad = true;
+  //       }
+  //       buildList();
+  //     } else {
+  //       alert(`${student.firstName} can't be in the Inq. squad!
+  //       Only pureblood and Slytherin are allowed!`);
+  //     }
+  //   }
 
-    function removeInqSquad() {
-      student.inqSquad = false;
-      buildList();
-    }
-  }
+  //   function removeInqSquad() {
+  //     student.inqSquad = false;
+  //     buildList();
+  //   }
+  // }
 
   // append clone to list
   clone.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
@@ -326,10 +326,10 @@ function displayStudent(student) {
   }
 
   // Make prefect and inq squad clickable
-  // clone
-  //   .querySelector("[data-field=inq-squad]")
-  //   .addEventListener("click", () => showDetails(student));
-  // clone.querySelector("[data-field=prefect]").addEventListener("click", () => showDetails(student));
+  clone
+    .querySelector("[data-field=inq-squad]")
+    .addEventListener("click", () => showDetails(student));
+  clone.querySelector("[data-field=prefect]").addEventListener("click", () => showDetails(student));
 
   clone
     .querySelector("[data-field=show_more]")
@@ -341,12 +341,12 @@ function displayStudent(student) {
 // --------- popup ---------
 function showDetails(student) {
   // Remove prefect and inq squad clickable
-  // document
-  //   .querySelector(".student_container [data-field=inq-squad]")
-  //   .removeEventListener("click", () => showDetails(student));
-  // document
-  //   .querySelector(".student_container [data-field=prefect]")
-  //   .removeEventListener("click", () => showDetails(student));
+  document
+    .querySelector(".student_container [data-field=inq-squad]")
+    .removeEventListener("click", () => showDetails(student));
+  document
+    .querySelector(".student_container [data-field=prefect]")
+    .removeEventListener("click", () => showDetails(student));
 
   document
     .querySelector(".student_container [data-field=show_more]")
@@ -394,19 +394,12 @@ function showDetails(student) {
   popUp.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
   popUp.querySelector("[data-field=inq-squad]").dataset.inqSquad = student.inqSquad;
 
-  if (student.prefect) {
-    popUp.querySelector(".badges_btn #prefect_btn").textContent = "Remove Perfect";
-  } else {
-    popUp.querySelector(".badges_btn #prefect_btn").textContent = "Make Perfect";
-  }
-
-  if (student.inqSquad) {
-    popUp.querySelector(".badges_btn #squad_btn").textContent = "Remove from Inq. squad";
-  } else {
-    popUp.querySelector(".badges_btn #squad_btn").textContent = "Add to Inq. squad";
-  }
-
   //--------- eventListener ---------
+  // Make prefect and inq squad clickable
+  popUp.querySelector("[data-field=prefect]").addEventListener("click", selectPrefect);
+  popUp.querySelector("[data-field=inq-squad]").addEventListener("click", selectInqSquad);
+  popUp.querySelector("#prefect_btn").addEventListener("click", selectPrefect);
+  popUp.querySelector("#squad_btn").addEventListener("click", selectInqSquad);
 
   // expel
   document.querySelector("#expel_btn").addEventListener("click", expelledStudent);
@@ -419,6 +412,64 @@ function showDetails(student) {
       closePopUp();
     }
   });
+
+  // ------ make prefect ------
+  function selectPrefect() {
+    removeAllEvtListener();
+
+    if (student.prefect === true) {
+      student.prefect = false;
+    } else {
+      tryToMakeAPrefect(student);
+      // student.prefect = true;
+    }
+    closePopUp();
+    buildList();
+  }
+
+  // ------ make inq squad ------
+  function selectInqSquad() {
+    removeAllEvtListener();
+
+    if (isHacked) {
+      student.inqSquad = true;
+      closePopUp();
+      buildList();
+
+      setTimeout(removeInqSquad, 3000);
+    } else {
+      if (student.blood === "pure" || student.house === "Slytherin") {
+        if (student.inqSquad) {
+          student.inqSquad = false;
+        } else {
+          student.inqSquad = true;
+        }
+        closePopUp();
+        buildList();
+      } else {
+        alert(`${student.firstName} can't be in the Inq. squad!
+        Only pureblood and Slytherin are allowed!`);
+      }
+    }
+
+    function removeInqSquad() {
+      student.inqSquad = false;
+      closePopUp();
+      buildList();
+    }
+  }
+
+  if (student.prefect) {
+    popUp.querySelector(".badges_btn #prefect_btn").textContent = "Remove Perfect";
+  } else {
+    popUp.querySelector(".badges_btn #prefect_btn").textContent = "Make Perfect";
+  }
+
+  if (student.inqSquad) {
+    popUp.querySelector(".badges_btn #squad_btn").textContent = "Remove from Inq. squad";
+  } else {
+    popUp.querySelector(".badges_btn #squad_btn").textContent = "Add to Inq. squad";
+  }
 
   // --------- expelled ---------
   function expelledStudent() {
@@ -439,12 +490,28 @@ function showDetails(student) {
     }
     closePopUp();
   }
-}
 
-function closePopUp() {
-  // console.log("Closing the popup and removing events");
-  document.querySelector(".close").removeEventListener("click", closePopUp);
-  document.querySelector("#pop_up").classList.remove("show");
+  function removeAllEvtListener() {
+    document
+      .querySelector("#pop_up [data-field=prefect]")
+      .removeEventListener("click", selectPrefect);
+    document.querySelector("#pop_up #prefect_btn").removeEventListener("click", selectPrefect);
+
+    document
+      .querySelector("#pop_up [data-field=inq-squad]")
+      .removeEventListener("click", selectInqSquad);
+    document.querySelector("#pop_up #squad_btn").removeEventListener("click", selectInqSquad);
+
+    document.querySelector("#expel_btn").removeEventListener("click", expelledStudent);
+    document.querySelector(".close").removeEventListener("click", closePopUp);
+  }
+
+  function closePopUp() {
+    document.querySelector("#pop_up .content").classList.remove("expelled");
+    // console.log("Closing the popup and removing events");
+    document.querySelector(".close").removeEventListener("click", closePopUp);
+    document.querySelector("#pop_up").classList.remove("show");
+  }
 }
 
 // ------ prefect ------
