@@ -38,8 +38,6 @@ async function setup() {
 
   buildList();
   regBtn();
-
-  // getData(urlList, urlBlood);
 }
 
 // --------- registerButtons ---------
@@ -186,9 +184,6 @@ function addBlood(bloodStatus) {
     } else {
       student.blood = "muggle";
     }
-
-    // console.log(student.lastName + " " + student.blood);
-    // console.log("**************************************");
   });
 }
 
@@ -196,10 +191,8 @@ function displayList(students) {
   // console.table(students);
   // console.log(students);
   // clear the list
-  // document.querySelector("#student_list tbody").innerHTML = "";
   document.querySelector("#student_list").innerHTML = "";
 
-  // console.table(students);
   // count students
   const studentCounted = studentCounter(students);
   displayCount(studentCounted);
@@ -240,6 +233,7 @@ function displayCount(studentCounted) {
   document.querySelector("#counter_bar #expelled_count").textContent = studentCounted.expelled;
   document.querySelector("#counter_bar #displaying_count").textContent = studentCounted.displaying;
 }
+
 function displayStudent(student) {
   const clone = document.querySelector("template#student").content.cloneNode(true);
 
@@ -271,6 +265,57 @@ function displayStudent(student) {
   }
 
   // --------- Prefects ---------
+  // Make prefect and inq squad clickable
+  clone.querySelector("[data-field=prefect]").addEventListener("click", selectPrefect);
+  clone.querySelector("[data-field=inq-squad]").addEventListener("click", selectInqSquad);
+
+  // ------ make prefect ------
+  function selectPrefect() {
+    document
+      .querySelector(".student_container [data-field=prefect]")
+      .removeEventListener("click", selectPrefect);
+    console.log("Try make prefect", student.firstName);
+
+    if (student.prefect === true) {
+      student.prefect = false;
+    } else {
+      tryToMakeAPrefect(student);
+      // student.prefect = true;
+    }
+    console.log(student.firstName, "is now", student.prefect, "in prefect");
+    buildList();
+  }
+
+  // ------ make inq squad ------
+  function selectInqSquad() {
+    document
+      .querySelector(".student_container [data-field=inq-squad]")
+      .removeEventListener("click", selectInqSquad);
+
+    if (isHacked) {
+      student.inqSquad = true;
+      buildList();
+
+      setTimeout(removeInqSquad, 3000);
+    } else {
+      if (student.blood === "pure" || student.house === "Slytherin") {
+        if (student.inqSquad) {
+          student.inqSquad = false;
+        } else {
+          student.inqSquad = true;
+        }
+        buildList();
+      } else {
+        alert(`${student.firstName} can't be in the Inq. squad!
+        Only pureblood and Slytherin are allowed!`);
+      }
+    }
+
+    function removeInqSquad() {
+      student.inqSquad = false;
+      buildList();
+    }
+  }
 
   // append clone to list
   clone.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
@@ -281,10 +326,10 @@ function displayStudent(student) {
   }
 
   // Make prefect and inq squad clickable
-  clone
-    .querySelector("[data-field=inq-squad]")
-    .addEventListener("click", () => showDetails(student));
-  clone.querySelector("[data-field=prefect]").addEventListener("click", () => showDetails(student));
+  // clone
+  //   .querySelector("[data-field=inq-squad]")
+  //   .addEventListener("click", () => showDetails(student));
+  // clone.querySelector("[data-field=prefect]").addEventListener("click", () => showDetails(student));
 
   clone
     .querySelector("[data-field=show_more]")
@@ -295,7 +340,6 @@ function displayStudent(student) {
 
 // --------- popup ---------
 function showDetails(student) {
-  console.log(student.firstName);
   // Remove prefect and inq squad clickable
   // document
   //   .querySelector(".student_container [data-field=inq-squad]")
@@ -304,9 +348,9 @@ function showDetails(student) {
   //   .querySelector(".student_container [data-field=prefect]")
   //   .removeEventListener("click", () => showDetails(student));
 
-  // document
-  //   .querySelector(".student_container [data-field=show_more]")
-  //   .removeEventListener("click", () => showDetails(student));
+  document
+    .querySelector(".student_container [data-field=show_more]")
+    .removeEventListener("click", () => showDetails(student));
 
   const popUp = document.querySelector("#pop_up");
   popUp.classList.add("show");
@@ -363,13 +407,9 @@ function showDetails(student) {
   }
 
   //--------- eventListener ---------
-  // Make prefect and inq squad clickable
-  popUp.querySelector("#prefect_btn").addEventListener("click", selectPrefect);
-  popUp.querySelector("#squad_btn").addEventListener("click", selectInqSquad);
 
   // expel
   document.querySelector("#expel_btn").addEventListener("click", expelledStudent);
-
   // closing
   document.querySelector(".close").addEventListener("click", closePopUp);
 
@@ -380,59 +420,10 @@ function showDetails(student) {
     }
   });
 
-  // ------ make prefect ------
-  function selectPrefect() {
-    // const popUp = document.querySelector("#pop_up");
-    // popUp.querySelector("#prefect_btn").removeEventListener("click", () => selectPrefect(student));
-    console.log("Try make prefect", student.firstName);
-
-    if (student.prefect === true) {
-      student.prefect = false;
-    } else {
-      // tryToMakeAPrefect(student);
-      student.prefect = true;
-    }
-    console.log(student.firstName, "is now", student.prefect, "in prefect");
-    closePopUp();
-    buildList();
-  }
-
-  // ------ make inq squad ------
-  function selectInqSquad() {
-    // document
-    //   .querySelector("#pop_up")
-    //   .querySelector("#squad_btn")
-    //   .removeEventListener("click", selectInqSquad);
-    if (isHacked) {
-      student.inqSquad = true;
-      closePopUp();
-      buildList();
-
-      setTimeout(removeInqSquad, 3000);
-    } else {
-      if (student.blood === "pure" || student.house === "Slytherin") {
-        if (student.inqSquad) {
-          student.inqSquad = false;
-        } else {
-          student.inqSquad = true;
-        }
-        closePopUp();
-        buildList();
-      } else {
-        console.log(`Can't be in the Inq. squad, need to be in Slytherin or Pureblood`);
-        closePopUp();
-      }
-    }
-
-    function removeInqSquad() {
-      student.inqSquad = false;
-      buildList();
-    }
-  }
-
   // --------- expelled ---------
   function expelledStudent() {
     console.log("TryMakeExpelledStudent");
+    document.querySelector("#expel_btn").removeEventListener("click", expelledStudent);
 
     if (student.hacker !== true) {
       const indexOfStudent = allStudents.indexOf(student);
@@ -444,25 +435,16 @@ function showDetails(student) {
       console.log(expelledList);
       console.log(expStudent);
     } else {
-      alert("Can't be expelled");
+      alert("Can't be expelled!");
     }
     closePopUp();
   }
 }
 
 function closePopUp() {
-  console.log("Closing the popup and removing events");
+  // console.log("Closing the popup and removing events");
+  document.querySelector(".close").removeEventListener("click", closePopUp);
   document.querySelector("#pop_up").classList.remove("show");
-
-  // document.querySelector(".close").removeEventListener("click", closePopUp);
-  // document.querySelector("#expel_btn").removeEventListener("click", () => expelledStudent(student));
-
-  // document.removeEventListener("mouseup", function (elm) {
-  //   const popUpContainer = document.querySelector("#pop_up .content");
-  //   if (popUpContainer.contains(elm.target)) {
-  //     closePopUp();
-  //   }
-  // });
 }
 
 // ------ prefect ------

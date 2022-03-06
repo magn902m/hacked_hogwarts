@@ -89,15 +89,48 @@ footer {
 
 /* ------ student list rules ------ */
 .student_container {
-  /* display: flex; */
-  background-color: antiquewhite;
-  padding: 0.5rem;
-  /* margin: 1rem; */
+  position: relative;
+  overflow: hidden;
+
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
   grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
   border-radius: 1rem;
+
+  padding: 0.5rem;
+  background-color: antiquewhite;
+}
+
+.student_container.expelled {
+  /* background-color: rgba(0, 0, 0, 0.7); */
+  opacity: 0.5;
+}
+
+.student_container.expelled::after {
+  z-index: 1;
+  font-size: 3rem;
+  content: "EXPELLED";
+  color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+#pop_up .content.expelled {
+  opacity: 0.5;
+}
+
+#pop_up .content.expelled::after {
+  z-index: 1;
+  font-size: 3rem;
+  content: "EXPELLED";
+  color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 #student_list {
@@ -177,17 +210,6 @@ img[data-field="inq-squad"][data-inq-squad="false"] {
   filter: grayscale(100%);
 }
 
-.student_container[data-expelled="true"]::after {
-  content: "expelled";
-  z-index: 1;
-  font-size: 2rem;
-}
-
-.expelled:after {
-  content: "expelled";
-  z-index: 1;
-  font-size: 2rem;
-}
 /* ------ popup rules ------ */
 #pop_up {
   display: none;
