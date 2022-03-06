@@ -125,10 +125,6 @@ function cleanUpData(studentsList, i) {
         .toUpperCase() + originalName.substring(originalName.lastIndexOf(" ") + 2).toLowerCase();
   }
 
-  // if (originalName.includes("-")) {
-  //   student.lastName = originalName.substring(originalName.indexOf("-")).toUpperCase();
-  // }
-
   // Middlename: take the middlename and make the first char upper case and the rest lower case.
 
   student.middleName = originalName.substring(
@@ -152,16 +148,25 @@ function cleanUpData(studentsList, i) {
   student.gender = gender.charAt(0).toUpperCase() + gender.substring(1).toLowerCase();
 
   // Imgsrc: find the destation and make it all to lower case.
-  student.imgSrc = `../assets/images/students_img/${originalName
-    .substring(0, originalName.indexOf(" "))
-    .toLowerCase()}_.png`;
-  student.imgSrc = `./assets/images/students_img/${
-    originalName
-      .substring(originalName.lastIndexOf(" ") + 1, originalName.lastIndexOf(" ") + 2)
-      .toLowerCase() + originalName.substring(originalName.lastIndexOf(" ") + 2).toLowerCase()
-  }_${originalName.substring(0, 1).toUpperCase().toLowerCase()}.png`;
+  let imgSrcHolder;
+  if (originalName.includes("-")) {
+    imgSrcHolder = `./assets/images/students_img/${originalName
+      .substring(originalName.lastIndexOf("-") + 1)
+      .toLowerCase()}_${student.firstName.charAt(0).toLowerCase()}.png`;
+  } else if (!originalName.includes(" ")) {
+    imgSrcHolder = `./assets/images/students_img/no_picture.png`;
+  } else if (originalName.toLowerCase().includes("patil")) {
+    if (originalName.toLowerCase().includes("padma")) {
+      imgSrcHolder = "./assets/images/students_img/patil_padma.png";
+    } else if (originalName.toLowerCase().includes("parvati"))
+      imgSrcHolder = "./assets/images/students_img/patil_parvati.png";
+  } else {
+    imgSrcHolder = `./assets/images/students_img/${originalName
+      .substring(originalName.lastIndexOf(" ") + 1)
+      .toLowerCase()}_${student.firstName.charAt(0).toLowerCase()}.png`;
+  }
+  student.imgSrc = imgSrcHolder;
 
-  // House: set the first char to upper case and the rest to lower case.
   student.house = house.charAt(0).toUpperCase() + house.substring(1).toLowerCase();
 
   student.gender = gender.charAt(0).toUpperCase() + gender.substring(1).toLowerCase();
