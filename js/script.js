@@ -715,6 +715,9 @@ function hackTheSystem() {
   if (isHacked) {
     console.log("The system is hacked");
   } else {
+    document.querySelector("h1").textContent = "Welcome to Pinkwarts Students List";
+    document.querySelector("body").style.backgroundColor = "pink";
+    document.querySelector("body").style.backgroundImage = "none";
     isHacked = true;
     ruinBlood();
     const mySelf = createMyself();
@@ -735,6 +738,7 @@ function createMyself() {
   mySelf.house = "Gryffindor";
   mySelf.blood = "Muggle";
   mySelf.hacker = true;
+  mySelf.id = "777";
   // console.log(mySelf);
 
   return mySelf;
