@@ -26,6 +26,8 @@
     </header>
 
     <main>
+      <hr>
+
 
       <nav id="nav_main">
         <nav class="nav_filter">
@@ -195,24 +197,28 @@
 
       <!-- Popup for details on student -->
       <div id="pop_up">
-        <section class="before_content">
-          <button class="close">&times;</button>
           <section class="content">
             <article class="student_info">
+              <button class="close">&times;</button>
               <div class="top">
                 <img class="student_img" src="" alt="" />
                 <img class="crest_img" src="" alt="crests" data-badges="crest" />
               </div>
-              <article class="info_wrapper">
-                <h3><span id="fullname"></span></h3>
-                <h4>House: <span id="house"></span></h4>
-                <p>Firstname: <span id="firstname"></span></p>
-                <p>Nickname: <span id="nickname"></span></p>
-                <p>Middlename: <span id="middlename"></span></p>
-                <p>Lastname: <span id="lastname"></span></p>
-                <p>Blood History: <span class="blood"></span></p>
-              </article>
             </article>
+            <article class="info_wrapper">
+              <h3><span id="fullname"></span></h3>
+              <h4>House: <span id="house"></span></h4>
+              <p>Firstname: <span id="firstname"></span></p>
+              <p>Nickname: <span id="nickname"></span></p>
+              <p>Middlename: <span id="middlename"></span></p>
+              <p>Lastname: <span id="lastname"></span></p>
+              <p>Blood History: <span class="blood"></span></p>
+            </article>
+            <div class="badges_btn">
+              <button id="prefect_btn" data-prefect="false">Prefect</button>
+              <button id="squad_btn" data-inq-squad="false">Inq. squad</button>
+              <button id="expel_btn" data-expel="false">Expel</button>
+            </div>
             <div class="badges">
               <img
                 src="/assets/crests/prefect.png"
@@ -227,13 +233,6 @@
                 data-inq-squad="false"
               />
             </div>
-            <div class="badges_btn">
-              <button id="prefect_btn" data-prefect="false">Prefect</button>
-              <button id="squad_btn" data-inq-squad="false">Inq. squad</button>
-              <button id="expel_btn" data-expel="false">Expel</button>
-            </div>
-
-          </section>
         </section>
       </div>
 
