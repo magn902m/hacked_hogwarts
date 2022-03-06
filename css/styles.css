@@ -94,8 +94,8 @@ footer {
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 1rem;
+  /* grid-template-rows: repeat(2, 1fr); */
+  gap: 0.5rem;
   border-radius: 1rem;
 
   padding: 0.5rem;
@@ -147,7 +147,7 @@ footer {
   width: 30%;
 }
 .badges {
-  grid-column: 1/4;
+  margin-top: 0.5rem;
 }
 .info {
   grid-column: 2/4;
