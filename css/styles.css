@@ -172,8 +172,8 @@ footer {
 }
 
 /* style on prefect */
-img[data-badges="prefect"][data-prefect="false"],
-img[data-badges="inq-squad"][data-inq-squad="false"] {
+img[data-field="prefect"][data-prefect="false"],
+img[data-field="inq-squad"][data-inq-squad="false"] {
   filter: grayscale(100%);
 }
 
