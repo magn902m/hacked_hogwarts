@@ -17,8 +17,8 @@ let isHacked = false;
 const settings = {
   filterBy: "all",
   filterType: "all",
-  sortBy: "student_id",
-  sortDir: "desc",
+  sortBy: "studentId",
+  sortDir: "asc",
   search: "",
 };
 
@@ -47,7 +47,7 @@ function regBtn() {
     .querySelectorAll("[data-action='filter']")
     .forEach((btn) => btn.addEventListener("click", selectFilter));
   document
-    .querySelectorAll("[data-action='sort']")
+    .querySelectorAll("[data-action=sort]")
     .forEach((btn) => btn.addEventListener("click", selectSort));
 }
 
@@ -80,7 +80,7 @@ function cleanUpData(studentsList, i) {
 
   // Student object
   const Student = {
-    id: null,
+    studentId: null,
     firstName: "",
     lastName: "",
     middleName: "",
@@ -102,7 +102,7 @@ function cleanUpData(studentsList, i) {
   let gender = studentsList.gender.trim();
   let originalName = studentsList.fullname.trim();
 
-  student.id = i + 1;
+  student.studentId = i + 1;
 
   // -- Setting values for the object --
   // Firstname: take the first char and set it to upper case and set the rest to lower case.
@@ -245,7 +245,7 @@ function displayStudent(student) {
   clone.querySelector(
     "[data-field=student_img]"
   ).alt = `Picture of ${student.firstName} ${student.lastName}`;
-  clone.querySelector(".student_id").textContent = `Id: ${student.id}`;
+  clone.querySelector(".student_id").textContent = `Id: ${student.studentId}`;
 
   // --------- House color and crests ---------
   const studCont = clone.querySelector(".student_container");
@@ -363,7 +363,7 @@ function showDetails(student) {
   popUp.querySelector(".student_img").src = student.imgSrc;
   popUp.querySelector(
     "#fullname"
-  ).textContent = `${student.firstName} ${student.nickName} ${student.middleName} ${student.lastName}`;
+  ).textContent = `${student.firstName} ${student.nickName} ${student.middleName} ${student.lastName} - Nr. ${student.studentId}`;
   popUp.querySelector("#house").textContent = student.house;
   popUp.querySelector("#firstname").textContent = student.firstName;
   popUp.querySelector("#nickname").textContent = student.nickName;
@@ -638,9 +638,11 @@ function filterList(student) {
 // --------- sorting ---------
 // sort allStudents with the correct sort function and put info filteredList
 function selectSort(event) {
-  const sortBy = event.target.value;
-  const sortDir = event.target.dataset.sortDirection;
-  console.log(sortDir);
+  console.log("selectSort is running and you clicked:", this);
+  // console.log(event);
+  const sortBy = this.value;
+  const sortDir = this.dataset.sortDirection;
+  // console.log(sortDir);
 
   //find old sortBy element
   // const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`);
@@ -669,6 +671,7 @@ function setSort(sortBy, sortDir) {
 }
 
 function sortList(sortedList) {
+  console.log(settings.sortBy);
   let direction = 1;
   if (settings.sortDir === "desc") {
     direction = -1;
@@ -681,10 +684,11 @@ function sortList(sortedList) {
   // closure
   function sortByProperty(a, b) {
     // console.log(a[settings.sortBy] < b[settings.sortBy]);
+    // console.table(`a.sortby: ${a[settings.sortBy]}, b.sortby: ${b[settings.sortBy]}`);
     if (a[settings.sortBy] < b[settings.sortBy]) {
       return -1 * direction;
     } else {
-      return 1 * direction;
+      return direction;
     }
   }
   return sortedList;
@@ -740,7 +744,7 @@ function createMyself() {
   mySelf.house = "Gryffindor";
   mySelf.blood = "Muggle";
   mySelf.hacker = true;
-  mySelf.id = "777";
+  mySelf.studentId = "777";
   // console.log(mySelf);
 
   return mySelf;
