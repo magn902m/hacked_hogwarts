@@ -49,6 +49,10 @@ function regBtn() {
   document
     .querySelectorAll("[data-action=sort]")
     .forEach((btn) => btn.addEventListener("click", selectSort));
+
+  // document.querySelector("#sort").addEventListener("change", selectSort);
+
+  // Link to learn more about change event: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
 }
 
 // --------- Control if password is true ---------
@@ -638,20 +642,22 @@ function filterList(student) {
 // --------- sorting ---------
 // sort allStudents with the correct sort function and put info filteredList
 function selectSort(event) {
-  console.log("selectSort is running and you clicked:", this);
+  // console.log("selectSort is running and you clicked:", this);
   // console.log(event);
-  const sortBy = this.value;
-  const sortDir = this.dataset.sortDirection;
-  // console.log(sortDir);
+  const sortBy = event.target.value;
+  const sortDir = event.target.dataset.sortDirection;
+  // const sortBy = this.value;
+  // const sortDir = this.dataset.sortDirection;
+  console.log(`sortDir is: ${sortDir}`);
 
-  //find old sortBy element
-  // const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`);
-  const oldElement = document.querySelector(`[value="${settings.sortBy}"]`);
-  // console.log(oldElement);
-  oldElement.classList.remove("sortby");
+  // //find old sortBy element
+  // // const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`);
+  // const oldElement = document.querySelector(`[value="${settings.sortBy}"]`);
+  // // console.log(oldElement);
+  // oldElement.classList.remove("sortby");
 
-  //indicate active sort
-  event.target.classList.add("sortby");
+  // //indicate active sort
+  // event.target.classList.add("sortby");
 
   //toggle the direction
   if (sortDir === "asc") {
