@@ -612,7 +612,7 @@ function searchList(list) {
 function selectFilter(event) {
   // console.log("selectFilter");
   // const filterBy = event.target.dataset.filter;
-  console.log(event);
+  // console.log(event);
   const filterBy = event.target.value;
 
   //find selected options element
@@ -626,7 +626,7 @@ function selectFilter(event) {
 }
 
 function setFilter(filterBy, filterType, isTrue) {
-  console.log(filterBy, filterType);
+  // console.log(filterBy, filterType);
   if (isTrue === "true") {
     settings.filterBy = true;
   } else {
