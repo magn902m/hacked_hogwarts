@@ -28,90 +28,26 @@
     <main>
       <hr>
 
-
       <nav id="nav_main">
         <nav class="nav_filter">
-          <div>
-            <h3>Filter by house:</h3>
-            <button
-              class="filter"
-              data-action="filter"
-              data-filter_type="house"
-              data-filter="Gryffindor"
-            >
-              Gryffindor
-            </button>
-            <button
-              class="filter"
-              data-action="filter"
-              data-filter_type="house"
-              data-filter="Slytherin"
-            >
-              Slytherin
-            </button>
-            <button
-              class="filter"
-              data-action="filter"
-              data-filter_type="house"
-              data-filter="Hufflepuff"
-            >
-              Hufflepuff
-            </button>
-            <button
-              class="filter"
-              data-action="filter"
-              data-filter_type="house"
-              data-filter="Ravenclaw"
-            >
-              Ravenclaw
-            </button>
-          </div>
-          <div>
-            <h3>Filter by status:</h3>
-            <button class="filter" data-action="filter" data-filter_type="prefect" data-filter="true">
-              Prefects
-            </button>
-            <button
-              class="filter"
-              data-action="filter"
-              data-filter_type="expelled"
-              data-filter="true"
-            >
-              Expelled students
-            </button>
-            <button
-              class="filter"
-              data-action="filter"
-              data-filter_type="inqSquad"
-              data-filter="true"
-            >
-              Inquisitorial squad
-            </button>
-          </div>
-          <div>
-            <h3>Filter by gender:</h3>
-            <button class="filter" data-action="filter" data-filter_type="gender" data-filter="Boy">
-              Boys
-            </button>
-            <button class="filter" data-action="filter" data-filter_type="gender" data-filter="Girl">
-              Girls
-            </button>
-          </div>
-          <div>
-            <h3>Filter by blood status:</h3>
-            <button class="filter" data-action="filter" data-filter_type="blood" data-filter="pure">
-              Pure blood
-            </button>
-            <button class="filter" data-action="filter" data-filter_type="blood" data-filter="half">
-              Half blood
-            </button>
-            <button class="filter" data-action="filter" data-filter_type="blood" data-filter="muggle">
-              Muggles
-            </button>
-          </div>
+          <h3>Filter by:</h3>
+          <select name="filter" id="filter">
+            <option value="all" class="filter" data-filter_type="all" selected>Show all</option>
+            <option value="Gryffindor" class="filter" data-filter_type="house">Gryffindor</option>
+            <option value="Slytherin" class="filter" data-filter_type="house">Slytherin</option>
+            <option value="Hufflepuff" class="filter" data-filter_type="house">Hufflepuff</option>
+            <option value="Ravenclaw" class="filter" data-filter_type="house">Ravenclaw</option>
+            <option value="prefect" class="filter" data-filter_type="prefect" data-filter="true">Prefects</option>
+            <option value="expelled" class="filter" data-filter_type="expelled" data-filter="true">Expelled students</option>
+            <option value="inqSquad" class="filter" data-filter_type="inqSquad" data-filter="true">Inquisitorial squad</option>
+            <option value="Boy" class="filter" data-filter_type="gender">Boys</option>
+            <option value="Girl" class="filter" data-filter_type="gender">Girls</option>
+            <option value="pure" class="filter" data-filter_type="blood">Pure blood</option>
+            <option value="half" class="filter" data-filter_type="blood">Half blood</option>
+            <option value="muggle" class="filter" data-filter_type="blood">Muggles</option>
+          </select>
         </nav>
     
-        <div class="search_sort">
         <nav class="nav_search">
           <div class="search_wrapper">
             <h3>Searchbar:</h3>
@@ -121,7 +57,13 @@
     
         <nav class="nav_sorting">
           <h3>Sort by:</h3>
-          <select name="sort" id="sort" data-sort-direction="asc">
+            <button class="sort" data-action="sort" data-sort-direction="asc" data-sort="studentId">Student id</button>
+            <button class="sort" data-action="sort" data-sort-direction="asc" data-sort="firstName">Firstname</button>
+            <button class="sort" data-action="sort" data-sort-direction="asc" data-sort="lastName">Lastname</button>
+            <button class="sort" data-action="sort" data-sort-direction="asc" data-sort="house">House</button>
+            <button class="sort" data-action="sort" data-sort-direction="asc" data-sort="prefect">Prefect</button>
+            <button class="sort" data-action="sort" data-sort-direction="asc" data-sort="inqSquad">Inq. Squad</button>
+            <!-- <select name="sort" id="sort" data-sort-direction="asc">
             <option value="" selected>Sort by:</option>
             <option value="studentId" data-sort-direction="asc" data-action="sort">              
               Student ID
@@ -131,14 +73,9 @@
             <option value="house" data-sort-direction="asc" data-action="sort">House</option>
             <option value="prefect" data-sort-direction="asc" data-action="sort">Prefect</option>
             <option value="inqSquad" data-sort-direction="asc" data-action="sort">Inq. Squad</option>
-          </select>
+          </select> -->
         </nav>
-        <div class="all">
-          <button class="filter" data-action="filter" data-filter_type="all" data-filter="all">
-            Show all
-          </button>
-        </div>
-        </div>
+      
         </nav>
     
         <aside id="counter_bar">

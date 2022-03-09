@@ -44,8 +44,8 @@ async function setup() {
 function regBtn() {
   document.querySelector("#searchbar").addEventListener("input", searchFieldInput);
   document
-    .querySelectorAll("[data-action='filter']")
-    .forEach((btn) => btn.addEventListener("click", selectFilter));
+    .querySelectorAll("#filter")
+    .forEach((btn) => btn.addEventListener("change", selectFilter));
   document
     .querySelectorAll("[data-action=sort]")
     .forEach((btn) => btn.addEventListener("click", selectSort));
@@ -611,13 +611,23 @@ function searchList(list) {
 // --------- filter ---------
 function selectFilter(event) {
   // console.log("selectFilter");
-  const filterBy = event.target.dataset.filter;
-  const filterType = event.target.dataset.filter_type;
-  setFilter(filterBy, filterType);
+  // const filterBy = event.target.dataset.filter;
+  console.log(event);
+  const filterBy = event.target.value;
+
+  //find selected options element
+  const oldElement = document.querySelector(`[value="${filterBy}"]`);
+  // console.log(oldElement);
+  const filterType = oldElement.dataset.filter_type;
+  // console.log(filterType);
+  const isTrue = oldElement.dataset.filter;
+
+  setFilter(filterBy, filterType, isTrue);
 }
 
-function setFilter(filterBy, filterType) {
-  if (filterBy === "true") {
+function setFilter(filterBy, filterType, isTrue) {
+  console.log(filterBy, filterType);
+  if (isTrue === "true") {
     settings.filterBy = true;
   } else {
     settings.filterBy = filterBy;
@@ -644,11 +654,11 @@ function filterList(student) {
 function selectSort(event) {
   // console.log("selectSort is running and you clicked:", this);
   // console.log(event);
-  const sortBy = event.target.value;
+  const sortBy = event.target.dataset.sort;
   const sortDir = event.target.dataset.sortDirection;
   // const sortBy = this.value;
   // const sortDir = this.dataset.sortDirection;
-  console.log(`sortDir is: ${sortDir}`);
+  // console.log(`sortDir is: ${sortDir}`);
 
   // //find old sortBy element
   // // const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`);
@@ -677,7 +687,7 @@ function setSort(sortBy, sortDir) {
 }
 
 function sortList(sortedList) {
-  console.log(settings.sortBy);
+  // console.log(settings.sortBy);
   let direction = 1;
   if (settings.sortDir === "desc") {
     direction = -1;
