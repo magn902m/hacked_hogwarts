@@ -91,16 +91,25 @@ p {
   font-size: 1rem;
 }
 
+a {
+  margin-top: 3rem;
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
 button,
-#filter {
+#filter,
+a {
   padding: 0.3rem;
   background-color: #ea9a60;
   border: 1px solid #000;
   border-radius: 0.3rem;
   transition: 0.3s;
+  color: #000;
 }
 
-button:hover {
+button:hover,
+a:hover {
   background-color: #000;
   color: #ea9a60;
   box-shadow: 1px 1px #ea9a60, 2px 2px #ea9a60, 3px 3px #ea9a60;
