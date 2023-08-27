@@ -27,8 +27,8 @@ let keySaved = "";
 // --------- Setup ---------
 async function setup() {
   // console.log("setup");
-  const urlList = "https://petlatkea.dk/2021/hogwarts/students.json";
-  const urlBlood = "https://petlatkea.dk/2021/hogwarts/families.json";
+  const urlList = "./json/students.json";
+  const urlBlood = "./json/families.json";
 
   const studentList = await getData(urlList);
   const bloodList = await getData(urlBlood);
